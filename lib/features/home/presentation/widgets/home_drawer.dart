@@ -57,7 +57,7 @@ class _HomeDrawerState extends State<HomeDrawer> {
                     SizedBox(height: 26.h),
                     _ExpandableDrawerSection(
                       title: 'MAIN CATEGORIES',
-                      icon: Icons.grid_view_outlined,
+                      iconAsset: AppAssets.drawerMainCategories,
                       isExpanded: _mainCategoriesExpanded,
                       onToggle: () {
                         setState(() {
@@ -66,15 +66,15 @@ class _HomeDrawerState extends State<HomeDrawer> {
                       },
                       items: const <_DrawerMenuItemData>[
                         _DrawerMenuItemData(
-                          icon: Icons.bed_outlined,
+                          iconAsset: AppAssets.drawerMyStay,
                           title: 'My Stay',
                         ),
                         _DrawerMenuItemData(
-                          icon: Icons.dashboard_outlined,
+                          iconAsset: AppAssets.drawerDashboard,
                           title: 'Dashboard',
                         ),
                         _DrawerMenuItemData(
-                          icon: Icons.calendar_month_outlined,
+                          iconAsset: AppAssets.drawerBookings,
                           title: 'Bookings',
                         ),
                       ],
@@ -82,7 +82,7 @@ class _HomeDrawerState extends State<HomeDrawer> {
                     SizedBox(height: 20.h),
                     _ExpandableDrawerSection(
                       title: 'WELLNESS HUB',
-                      icon: Icons.spa_outlined,
+                      iconAsset: AppAssets.drawerWellnessHub,
                       isExpanded: _wellnessHubExpanded,
                       onToggle: () {
                         setState(() {
@@ -91,11 +91,11 @@ class _HomeDrawerState extends State<HomeDrawer> {
                       },
                       items: const <_DrawerMenuItemData>[
                         _DrawerMenuItemData(
-                          icon: Icons.favorite_border_rounded,
+                          iconAsset: AppAssets.drawerMyHealth,
                           title: 'MyHealth',
                         ),
                         _DrawerMenuItemData(
-                          icon: Icons.assignment_outlined,
+                          iconAsset: AppAssets.drawerQuestionnaires,
                           title: 'Questionnaires',
                         ),
                       ],
@@ -103,7 +103,7 @@ class _HomeDrawerState extends State<HomeDrawer> {
                     SizedBox(height: 20.h),
                     _ExpandableDrawerSection(
                       title: 'MY REQUESTS',
-                      icon: Icons.edit_note_rounded,
+                      iconAsset: AppAssets.drawerMyRequests,
                       isExpanded: _myRequestsExpanded,
                       onToggle: () {
                         setState(() {
@@ -112,23 +112,23 @@ class _HomeDrawerState extends State<HomeDrawer> {
                       },
                       items: const <_DrawerMenuItemData>[
                         _DrawerMenuItemData(
-                          icon: Icons.support_agent_outlined,
+                          iconAsset: AppAssets.drawerConcierge,
                           title: 'Concierge',
                         ),
                         _DrawerMenuItemData(
-                          icon: Icons.cleaning_services_outlined,
+                          iconAsset: AppAssets.drawerHousekeeping,
                           title: 'Housekeeping',
                         ),
                         _DrawerMenuItemData(
-                          icon: Icons.room_service_outlined,
+                          iconAsset: AppAssets.drawerRoomService,
                           title: 'Room Service',
                         ),
                         _DrawerMenuItemData(
-                          icon: Icons.handyman_outlined,
+                          iconAsset: AppAssets.drawerMaintenance,
                           title: 'Maintenance Service',
                         ),
                         _DrawerMenuItemData(
-                          icon: Icons.directions_car_filled_outlined,
+                          iconAsset: AppAssets.drawerTransportation,
                           title: 'Transportation',
                         ),
                       ],
@@ -136,28 +136,28 @@ class _HomeDrawerState extends State<HomeDrawer> {
                     SizedBox(height: 20.h),
                     const _DrawerSectionHeader(
                       title: 'OPO WELLNESS',
-                      icon: Icons.music_note_outlined,
+                      iconAsset: AppAssets.drawerOpoWellness,
                     ),
                     SizedBox(height: 20.h),
                     const _DrawerDivider(),
                     SizedBox(height: 20.h),
                     const _DrawerSectionHeader(
                       title: 'CHILDREN TRACKER',
-                      icon: Icons.child_care_outlined,
+                      iconAsset: AppAssets.drawerChildrenTracker,
                     ),
                     SizedBox(height: 20.h),
                     const _DrawerDivider(),
                     SizedBox(height: 20.h),
                     const _DrawerSectionHeader(
                       title: 'IN ROOM CONTROL',
-                      icon: Icons.meeting_room_outlined,
+                      iconAsset: AppAssets.drawerInRoomControl,
                     ),
                     SizedBox(height: 20.h),
                     const _DrawerDivider(),
                     SizedBox(height: 20.h),
                     _ExpandableDrawerSection(
                       title: 'EXPLORE',
-                      icon: Icons.travel_explore_outlined,
+                      iconAsset: AppAssets.drawerExplore,
                       isExpanded: _exploreExpanded,
                       onToggle: () {
                         setState(() {
@@ -166,27 +166,27 @@ class _HomeDrawerState extends State<HomeDrawer> {
                       },
                       items: const <_DrawerMenuItemData>[
                         _DrawerMenuItemData(
-                          icon: Icons.map_outlined,
+                          iconAsset: AppAssets.drawerResortMap,
                           title: 'Resort Map',
                         ),
                         _DrawerMenuItemData(
-                          icon: Icons.menu_book_outlined,
+                          iconAsset: AppAssets.drawerCatalogue,
                           title: 'Catalogue',
                         ),
                         _DrawerMenuItemData(
-                          icon: Icons.restaurant_menu_outlined,
+                          iconAsset: AppAssets.drawerMenu,
                           title: 'Menu',
                         ),
                         _DrawerMenuItemData(
-                          icon: Icons.photo_library_outlined,
+                          iconAsset: AppAssets.drawerGallery,
                           title: 'Gallery',
                         ),
                         _DrawerMenuItemData(
-                          icon: Icons.shopping_bag_outlined,
+                          iconAsset: AppAssets.drawerBoutique,
                           title: 'Boutique',
                         ),
                         _DrawerMenuItemData(
-                          icon: Icons.spa_outlined,
+                          iconAsset: AppAssets.drawerServicesAndTreatments,
                           title: 'Services and Treatment',
                         ),
                       ],
@@ -194,22 +194,23 @@ class _HomeDrawerState extends State<HomeDrawer> {
                     SizedBox(height: 20.h),
                     const _DrawerSectionHeader(
                       title: 'BOOK WITH US',
-                      icon: Icons.calendar_month_outlined,
+                      iconAsset: AppAssets.drawerBookWithUs,
                     ),
                     SizedBox(height: 20.h),
                     const _DrawerDivider(),
                     SizedBox(height: 20.h),
                     const _DrawerSectionHeader(
                       title: 'SETTINGS',
-                      icon: Icons.settings_outlined,
+                      iconAsset: AppAssets.drawerSettings,
                     ),
                     SizedBox(height: 20.h),
                     const _DrawerDivider(),
                     SizedBox(height: 20.h),
                     const _DrawerSectionHeader(
                       title: 'LOG OUT',
-                      icon: Icons.logout_rounded,
+                      iconAsset: AppAssets.drawerLogout,
                       titleColor: Color(0xFFFF6B6B),
+                      iconColor: Color(0xFFFF6B6B),
                     ),
                     SizedBox(height: 20.h),
                     const _DrawerDivider(),
@@ -321,14 +322,14 @@ class _DrawerProfileCard extends StatelessWidget {
 class _ExpandableDrawerSection extends StatelessWidget {
   const _ExpandableDrawerSection({
     required this.title,
-    required this.icon,
+    required this.iconAsset,
     required this.isExpanded,
     required this.onToggle,
     required this.items,
   });
 
   final String title;
-  final IconData icon;
+  final String iconAsset;
   final bool isExpanded;
   final VoidCallback onToggle;
   final List<_DrawerMenuItemData> items;
@@ -340,7 +341,7 @@ class _ExpandableDrawerSection extends StatelessWidget {
       children: <Widget>[
         _DrawerSectionHeader(
           title: title,
-          icon: icon,
+          iconAsset: iconAsset,
           isExpandable: true,
           isExpanded: isExpanded,
           onTap: onToggle,
@@ -353,7 +354,7 @@ class _ExpandableDrawerSection extends StatelessWidget {
               children: <Widget>[
                 for (int index = 0; index < items.length; index++) ...<Widget>[
                   _DrawerItem(
-                    icon: items[index].icon,
+                    iconAsset: items[index].iconAsset,
                     title: items[index].title,
                   ),
                   if (index != items.length - 1) SizedBox(height: 16.h),
@@ -375,34 +376,36 @@ class _ExpandableDrawerSection extends StatelessWidget {
 }
 
 class _DrawerMenuItemData {
-  const _DrawerMenuItemData({required this.icon, required this.title});
+  const _DrawerMenuItemData({required this.iconAsset, required this.title});
 
-  final IconData icon;
+  final String iconAsset;
   final String title;
 }
 
 class _DrawerSectionHeader extends StatelessWidget {
   const _DrawerSectionHeader({
     required this.title,
-    required this.icon,
+    required this.iconAsset,
     this.isExpandable = false,
     this.isExpanded = false,
     this.onTap,
     this.titleColor = AppColors.white,
+    this.iconColor = AppColors.white,
   });
 
   final String title;
-  final IconData icon;
+  final String iconAsset;
   final bool isExpandable;
   final bool isExpanded;
   final VoidCallback? onTap;
   final Color titleColor;
+  final Color iconColor;
 
   @override
   Widget build(BuildContext context) {
     final row = Row(
       children: <Widget>[
-        Icon(icon, color: AppColors.white, size: 24.sp),
+        _DrawerIcon(iconAsset: iconAsset, size: 24.sp, color: iconColor),
         SizedBox(width: 12.w),
         Expanded(
           child: Text(
@@ -447,9 +450,9 @@ class _DrawerSectionHeader extends StatelessWidget {
 }
 
 class _DrawerItem extends StatelessWidget {
-  const _DrawerItem({required this.icon, required this.title});
+  const _DrawerItem({required this.iconAsset, required this.title});
 
-  final IconData icon;
+  final String iconAsset;
   final String title;
 
   @override
@@ -457,7 +460,7 @@ class _DrawerItem extends StatelessWidget {
     return Row(
       children: <Widget>[
         SizedBox(width: 40.w),
-        Icon(icon, color: AppColors.white, size: 24.sp),
+        _DrawerIcon(iconAsset: iconAsset, size: 24.sp),
         SizedBox(width: 14.w),
         Expanded(
           child: Text(
@@ -469,6 +472,30 @@ class _DrawerItem extends StatelessWidget {
           ),
         ),
       ],
+    );
+  }
+}
+
+class _DrawerIcon extends StatelessWidget {
+  const _DrawerIcon({
+    required this.iconAsset,
+    required this.size,
+    this.color = AppColors.white,
+  });
+
+  final String iconAsset;
+  final double size;
+  final Color color;
+
+  @override
+  Widget build(BuildContext context) {
+    return Image.asset(
+      iconAsset,
+      width: size,
+      height: size,
+      fit: BoxFit.contain,
+      color: color,
+      colorBlendMode: BlendMode.srcIn,
     );
   }
 }
