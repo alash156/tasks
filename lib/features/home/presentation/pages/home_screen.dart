@@ -7,18 +7,16 @@ import '../../../../core/theme/app_colors.dart';
 import '../../../../core/theme/app_effects.dart';
 import '../../../../core/theme/app_typography.dart';
 import '../../../../shared/widgets/app_glass_container.dart';
-import '../widgets/home_action_tile.dart';
 import '../widgets/home_bottom_nav.dart';
-import '../widgets/home_section_title.dart';
-import '../widgets/home_top_bar.dart';
 
 final homeBottomNavIndexProvider =
     NotifierProvider<HomeBottomNavIndexNotifier, int>(
       HomeBottomNavIndexNotifier.new,
     );
-final homeFanLevelProvider = NotifierProvider<HomeFanLevelNotifier, int>(
-  HomeFanLevelNotifier.new,
-);
+final homeSelectedSceneProvider =
+    NotifierProvider<HomeSelectedSceneNotifier, int>(
+      HomeSelectedSceneNotifier.new,
+    );
 
 class HomeBottomNavIndexNotifier extends Notifier<int> {
   @override
@@ -29,12 +27,12 @@ class HomeBottomNavIndexNotifier extends Notifier<int> {
   }
 }
 
-class HomeFanLevelNotifier extends Notifier<int> {
+class HomeSelectedSceneNotifier extends Notifier<int> {
   @override
-  int build() => 1;
+  int build() => 0;
 
-  void setLevel(int level) {
-    state = level;
+  void setSelected(int index) {
+    state = index;
   }
 }
 
@@ -44,38 +42,43 @@ class HomeScreen extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final navIndex = ref.watch(homeBottomNavIndexProvider);
-    final fanLevel = ref.watch(homeFanLevelProvider);
+    final selectedScene = ref.watch(homeSelectedSceneProvider);
 
-    const controls = <_ControlItem>[
-      _ControlItem(
-        iconAsset: AppAssets.iconCurtain,
-        title: 'Curtains',
-        subtitle: 'Open 75%',
-      ),
-      _ControlItem(
-        iconAsset: AppAssets.iconNightLight,
-        title: 'Night Light',
-        subtitle: 'Enabled',
-      ),
-      _ControlItem(
-        iconAsset: AppAssets.iconBalcony,
-        title: 'Balcony',
-        subtitle: 'Closed',
-      ),
-      _ControlItem(
+    const scenes = <_SceneItem>[
+      _SceneItem(
+        title: 'MASTER',
         iconAsset: AppAssets.iconLamp,
-        title: 'Main Lamp',
-        subtitle: 'Warm',
+        accent: Color(0xFFF0C777),
       ),
-      _ControlItem(
+      _SceneItem(
+        title: 'MOOD',
         iconAsset: AppAssets.iconCandle,
-        title: 'Aroma',
-        subtitle: 'Sandalwood',
+        accent: Color(0xFFF0C777),
       ),
-      _ControlItem(
+      _SceneItem(
+        title: 'NIGHT LIGHT',
+        iconAsset: AppAssets.iconNightLight,
+        accent: Color(0xFFF0C777),
+      ),
+      _SceneItem(
+        title: 'PRIVACY',
+        iconAsset: AppAssets.iconCurtain,
+        accent: Color(0xFFEEA28D),
+      ),
+      _SceneItem(
+        title: 'BRIGHT',
+        iconAsset: AppAssets.iconSun,
+        accent: Color(0xFFF0C777),
+      ),
+      _SceneItem(
+        title: 'SERVICE',
         iconAsset: AppAssets.iconService,
-        title: 'Room Service',
-        subtitle: 'Available',
+        accent: Color(0xFF9FD5D2),
+      ),
+      _SceneItem(
+        title: 'TERRACE',
+        iconAsset: AppAssets.iconBalcony,
+        accent: Color(0xFFF0C777),
       ),
     ];
 
@@ -93,170 +96,147 @@ class HomeScreen extends ConsumerWidget {
               gradient: LinearGradient(
                 begin: Alignment.topCenter,
                 end: Alignment.bottomCenter,
-                colors: <Color>[
-                  AppColors.pageOverlayTop,
-                  AppColors.pageOverlayBottom,
-                ],
+                colors: <Color>[Color(0x52000000), Color(0x6E000000)],
+              ),
+            ),
+          ),
+          const DecoratedBox(
+            decoration: BoxDecoration(
+              gradient: RadialGradient(
+                center: Alignment(1.08, 1.02),
+                radius: 0.52,
+                colors: <Color>[Color(0x7B7A5E3B), Colors.transparent],
               ),
             ),
           ),
           SafeArea(
             child: Padding(
-              padding: EdgeInsets.symmetric(horizontal: 20.w),
+              padding: EdgeInsets.symmetric(horizontal: 18.w),
               child: SingleChildScrollView(
                 physics: const BouncingScrollPhysics(),
-                padding: EdgeInsets.only(top: 8.h, bottom: 128.h),
+                padding: EdgeInsets.only(top: 4.h, bottom: 134.h),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
-                    const HomeTopBar(),
-                    SizedBox(height: 28.h),
-                    Text(
-                      'WELCOME BACK,\nJAYASOM GUEST',
-                      style: AppTypography.caps24.copyWith(
-                        color: AppColors.white,
-                        letterSpacing: 4.4.w,
-                        height: 1.35,
-                      ),
+                    const _StatusPreviewRow(),
+                    SizedBox(height: 26.h),
+                    const _ProfileHeaderCard(),
+                    SizedBox(height: 44.h),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: <Widget>[
+                        Text(
+                          'VILLA 123',
+                          style: AppTypography.caps24.copyWith(
+                            color: AppColors.white,
+                            fontSize: 36.sp,
+                            letterSpacing: 6.1.w,
+                          ),
+                        ),
+                        Text(
+                          '26°C',
+                          style: AppTypography.regular46.copyWith(
+                            color: AppColors.white,
+                            fontSize: 50.sp,
+                            letterSpacing: 1.4.w,
+                          ),
+                        ),
+                      ],
                     ),
-                    SizedBox(height: 20.h),
-                    AppGlassContainer(
-                      recipe: AppEffects.darkGlassBlur30ShadowLarge,
-                      borderRadius: BorderRadius.circular(24.r),
-                      border: Border.all(color: const Color(0x59FFFFFF)),
-                      padding: EdgeInsets.symmetric(
-                        horizontal: 16.w,
-                        vertical: 14.h,
-                      ),
-                      child: Row(
-                        children: <Widget>[
-                          Container(
-                            width: 44.w,
-                            height: 44.w,
-                            decoration: BoxDecoration(
-                              color: const Color(0x2BFFFFFF),
-                              borderRadius: BorderRadius.circular(14.r),
-                            ),
-                            child: Center(
-                              child: Image.asset(
-                                AppAssets.iconClimateControl,
-                                width: 24.w,
-                                height: 24.w,
-                              ),
+                    SizedBox(height: 56.h),
+                    Row(
+                      children: <Widget>[
+                        Icon(
+                          Icons.lightbulb_outline_rounded,
+                          color: AppColors.white,
+                          size: 34.sp,
+                        ),
+                        SizedBox(width: 12.w),
+                        Expanded(
+                          child: Text(
+                            'LIGHTING & SCENES',
+                            style: AppTypography.caps24.copyWith(
+                              color: AppColors.white,
+                              fontSize: 24.sp,
+                              letterSpacing: 5.w,
                             ),
                           ),
-                          SizedBox(width: 12.w),
-                          Expanded(
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: <Widget>[
-                                Text(
-                                  'CLIMATE CONTROL',
-                                  style: AppTypography.caps12.copyWith(
-                                    color: AppColors.mutedText,
-                                    letterSpacing: 2.w,
-                                  ),
-                                ),
-                                SizedBox(height: 4.h),
-                                Text(
-                                  '24°C  •  HUMIDITY 58%',
-                                  style: AppTypography.regular16.copyWith(
-                                    color: AppColors.white,
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
-                          Image.asset(
-                            AppAssets.iconSun,
-                            width: 24.w,
-                            height: 24.w,
-                          ),
-                        ],
+                        ),
+                        Icon(
+                          Icons.keyboard_arrow_up_rounded,
+                          color: AppColors.white,
+                          size: 42.sp,
+                        ),
+                      ],
+                    ),
+                    SizedBox(height: 24.h),
+                    Text(
+                      'LIVING ROOM',
+                      style: AppTypography.regular56.copyWith(
+                        color: AppColors.white,
+                        fontSize: 58.sp,
+                        letterSpacing: 2.6.w,
+                        height: 1,
                       ),
                     ),
                     SizedBox(height: 24.h),
-                    const HomeSectionTitle(title: 'Quick Controls'),
-                    SizedBox(height: 12.h),
                     GridView.builder(
-                      itemCount: controls.length,
+                      itemCount: scenes.length,
                       shrinkWrap: true,
                       physics: const NeverScrollableScrollPhysics(),
                       gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                        crossAxisCount: 2,
-                        mainAxisSpacing: 12.h,
+                        crossAxisCount: 3,
                         crossAxisSpacing: 12.w,
-                        childAspectRatio: 1.26,
+                        mainAxisSpacing: 12.h,
+                        childAspectRatio: 0.81,
                       ),
                       itemBuilder: (BuildContext context, int index) {
-                        final item = controls[index];
-                        return HomeActionTile(
-                          iconAsset: item.iconAsset,
-                          title: item.title,
-                          subtitle: item.subtitle,
-                          isHighlighted: index == 1,
+                        final scene = scenes[index];
+                        return _SceneTile(
+                          item: scene,
+                          isSelected: selectedScene == index,
+                          onTap: () {
+                            ref
+                                .read(homeSelectedSceneProvider.notifier)
+                                .setSelected(index);
+                          },
                         );
                       },
                     ),
-                    SizedBox(height: 24.h),
-                    const HomeSectionTitle(title: 'Fan Speed'),
-                    SizedBox(height: 12.h),
-                    AppGlassContainer(
-                      recipe: AppEffects.darkGlassBlur10,
-                      borderRadius: BorderRadius.circular(22.r),
-                      border: Border.all(color: const Color(0x4DFFFFFF)),
-                      padding: EdgeInsets.symmetric(
-                        horizontal: 10.w,
-                        vertical: 10.h,
-                      ),
-                      child: Row(
-                        children: List<Widget>.generate(3, (int index) {
-                          final iconAsset = switch (index) {
-                            0 => AppAssets.iconFanLow,
-                            1 => AppAssets.iconFanMid,
-                            _ => AppAssets.iconFanMax,
-                          };
-                          final label = switch (index) {
-                            0 => 'LOW',
-                            1 => 'MEDIUM',
-                            _ => 'MAX',
-                          };
-                          final isSelected = fanLevel == index;
-
-                          return Expanded(
-                            child: Padding(
-                              padding: EdgeInsets.symmetric(horizontal: 4.w),
-                              child: _FanSpeedTile(
-                                iconAsset: iconAsset,
-                                label: label,
-                                isSelected: isSelected,
-                                onTap: () {
-                                  ref
-                                      .read(homeFanLevelProvider.notifier)
-                                      .setLevel(index);
-                                },
-                              ),
-                            ),
-                          );
-                        }),
-                      ),
+                    SizedBox(height: 20.h),
+                    const _FanControlPanel(),
+                    SizedBox(height: 28.h),
+                    const _RoomSelector(),
+                    SizedBox(height: 22.h),
+                    const _DividerLine(),
+                    SizedBox(height: 20.h),
+                    const _ExpandableControlRow(
+                      iconAsset: AppAssets.iconClimateControl,
+                      title: 'CLIMATE CONTROL',
                     ),
-                    SizedBox(height: 24.h),
-                    const HomeSectionTitle(title: 'Today Services'),
-                    SizedBox(height: 12.h),
-                    _ServiceTile(
-                      iconAsset: AppAssets.iconHanger,
-                      title: 'WARDROBE PREP',
-                      subtitle: 'Requested • 8:30 AM',
+                    SizedBox(height: 20.h),
+                    const _DividerLine(),
+                    SizedBox(height: 20.h),
+                    const _ExpandableControlRow(
+                      iconAsset: AppAssets.iconCurtain,
+                      title: 'CURTAINS & BLINDS',
                     ),
-                    SizedBox(height: 10.h),
-                    _ServiceTile(
-                      iconAsset: AppAssets.iconService,
-                      title: 'IN-ROOM MASSAGE',
-                      subtitle: 'Scheduled • 6:00 PM',
-                    ),
+                    SizedBox(height: 20.h),
+                    const _DividerLine(),
                   ],
                 ),
+              ),
+            ),
+          ),
+          Positioned(
+            right: 4.w,
+            top: 0.44.sh,
+            child: Container(
+              width: 7.w,
+              height: 56.h,
+              decoration: BoxDecoration(
+                color: const Color(0x6BFFFFFF),
+                borderRadius: BorderRadius.circular(8.r),
               ),
             ),
           ),
@@ -280,35 +260,54 @@ class HomeScreen extends ConsumerWidget {
   }
 }
 
-class _ServiceTile extends StatelessWidget {
-  const _ServiceTile({
-    required this.iconAsset,
-    required this.title,
-    required this.subtitle,
-  });
+class _StatusPreviewRow extends StatelessWidget {
+  const _StatusPreviewRow();
 
-  final String iconAsset;
-  final String title;
-  final String subtitle;
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      children: <Widget>[
+        Text(
+          '9:41',
+          style: AppTypography.regular30.copyWith(
+            color: AppColors.white,
+            fontWeight: FontWeight.w700,
+            fontSize: 17.sp,
+          ),
+        ),
+        const Spacer(),
+        Icon(
+          Icons.signal_cellular_alt_rounded,
+          color: AppColors.white,
+          size: 17.sp,
+        ),
+        SizedBox(width: 6.w),
+        Icon(Icons.wifi_rounded, color: AppColors.white, size: 18.sp),
+        SizedBox(width: 6.w),
+        Icon(Icons.battery_full_rounded, color: AppColors.white, size: 23.sp),
+      ],
+    );
+  }
+}
+
+class _ProfileHeaderCard extends StatelessWidget {
+  const _ProfileHeaderCard();
 
   @override
   Widget build(BuildContext context) {
     return AppGlassContainer(
-      recipe: AppEffects.darkGlassBlur10,
-      borderRadius: BorderRadius.circular(20.r),
-      border: Border.all(color: const Color(0x4DFFFFFF)),
-      padding: EdgeInsets.symmetric(horizontal: 14.w, vertical: 12.h),
+      recipe: AppEffects.darkGlassBlur30ShadowLarge,
+      borderRadius: BorderRadius.circular(34.r),
+      border: Border.all(color: const Color(0x5CFFFFFF)),
+      padding: EdgeInsets.symmetric(horizontal: 14.w, vertical: 14.h),
       child: Row(
         children: <Widget>[
-          Container(
-            width: 40.w,
-            height: 40.w,
-            decoration: BoxDecoration(
-              color: const Color(0x2EFFFFFF),
-              borderRadius: BorderRadius.circular(12.r),
-            ),
-            child: Center(
-              child: Image.asset(iconAsset, width: 22.w, height: 22.w),
+          ClipOval(
+            child: Image.asset(
+              AppAssets.profileAvatar,
+              width: 78.w,
+              height: 78.w,
+              fit: BoxFit.cover,
             ),
           ),
           SizedBox(width: 12.w),
@@ -317,21 +316,68 @@ class _ServiceTile extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
                 Text(
-                  title,
-                  style: AppTypography.caps12.copyWith(
+                  'MR.',
+                  style: AppTypography.caps16.copyWith(
                     color: AppColors.white,
-                    letterSpacing: 1.8.w,
+                    fontSize: 18.sp,
+                    letterSpacing: 4.2.w,
                   ),
                 ),
                 SizedBox(height: 4.h),
                 Text(
-                  subtitle,
-                  style: AppTypography.regular14.copyWith(
-                    color: AppColors.mutedText,
+                  'CHARLEY BROWN',
+                  maxLines: 1,
+                  overflow: TextOverflow.ellipsis,
+                  style: AppTypography.caps24.copyWith(
+                    color: AppColors.white,
+                    fontSize: 21.sp,
+                    letterSpacing: 4.6.w,
+                    height: 1.1,
                   ),
                 ),
               ],
             ),
+          ),
+          SizedBox(width: 8.w),
+          Stack(
+            clipBehavior: Clip.none,
+            children: <Widget>[
+              Image.asset(
+                AppAssets.iconBell,
+                width: 31.w,
+                height: 31.w,
+                fit: BoxFit.contain,
+              ),
+              Positioned(
+                top: -8.h,
+                right: -6.w,
+                child: Container(
+                  width: 24.w,
+                  height: 24.w,
+                  decoration: const BoxDecoration(
+                    color: Color(0xFFEA9F85),
+                    shape: BoxShape.circle,
+                  ),
+                  child: Center(
+                    child: Text(
+                      '28',
+                      style: AppTypography.regular14.copyWith(
+                        color: const Color(0xFF2B353B),
+                        fontWeight: FontWeight.w700,
+                        fontSize: 13.sp,
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+            ],
+          ),
+          SizedBox(width: 12.w),
+          Image.asset(
+            AppAssets.iconMenu,
+            width: 34.w,
+            height: 24.h,
+            fit: BoxFit.contain,
           ),
         ],
       ),
@@ -339,43 +385,68 @@ class _ServiceTile extends StatelessWidget {
   }
 }
 
-class _FanSpeedTile extends StatelessWidget {
-  const _FanSpeedTile({
-    required this.iconAsset,
-    required this.label,
+class _SceneTile extends StatelessWidget {
+  const _SceneTile({
+    required this.item,
     required this.isSelected,
     required this.onTap,
   });
 
-  final String iconAsset;
-  final String label;
+  final _SceneItem item;
   final bool isSelected;
   final VoidCallback onTap;
 
   @override
   Widget build(BuildContext context) {
-    return AnimatedContainer(
-      duration: const Duration(milliseconds: 220),
-      decoration: BoxDecoration(
-        color: isSelected ? const Color(0x30FFFFFF) : Colors.transparent,
-        borderRadius: BorderRadius.circular(16.r),
+    return AppGlassContainer(
+      recipe: AppEffects.darkGlassBlur30,
+      borderRadius: BorderRadius.circular(24.r),
+      border: Border.all(
+        color: isSelected ? const Color(0x99FFFFFF) : const Color(0x66AFC2CB),
       ),
       child: Material(
         color: Colors.transparent,
         child: InkWell(
           onTap: onTap,
-          borderRadius: BorderRadius.circular(16.r),
+          borderRadius: BorderRadius.circular(24.r),
           child: Padding(
-            padding: EdgeInsets.symmetric(vertical: 10.h),
+            padding: EdgeInsets.symmetric(horizontal: 8.w, vertical: 10.h),
             child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
-                Image.asset(iconAsset, width: 30.w, height: 30.w),
-                SizedBox(height: 6.h),
-                Text(
-                  label,
-                  style: AppTypography.caps10.copyWith(
-                    color: AppColors.white,
-                    letterSpacing: 1.4.w,
+                Container(
+                  width: 40.w,
+                  height: 40.w,
+                  decoration: BoxDecoration(
+                    shape: BoxShape.circle,
+                    boxShadow: <BoxShadow>[
+                      BoxShadow(
+                        color: item.accent.withValues(alpha: 0.4),
+                        blurRadius: 16.r,
+                      ),
+                    ],
+                  ),
+                  child: Center(
+                    child: Image.asset(
+                      item.iconAsset,
+                      width: 24.w,
+                      height: 24.w,
+                      color: item.accent,
+                      colorBlendMode: BlendMode.srcIn,
+                    ),
+                  ),
+                ),
+                SizedBox(height: 14.h),
+                FittedBox(
+                  fit: BoxFit.scaleDown,
+                  child: Text(
+                    item.title,
+                    maxLines: 1,
+                    style: AppTypography.caps24.copyWith(
+                      color: item.accent,
+                      fontSize: 17.sp,
+                      letterSpacing: 2.1.w,
+                    ),
                   ),
                 ),
               ],
@@ -387,14 +458,223 @@ class _FanSpeedTile extends StatelessWidget {
   }
 }
 
-class _ControlItem {
-  const _ControlItem({
+class _FanControlPanel extends StatelessWidget {
+  const _FanControlPanel();
+
+  @override
+  Widget build(BuildContext context) {
+    return AppGlassContainer(
+      recipe: AppEffects.darkGlassBlur30,
+      borderRadius: BorderRadius.circular(28.r),
+      border: Border.all(color: const Color(0x7FFFFFFF)),
+      padding: EdgeInsets.symmetric(horizontal: 18.w, vertical: 18.h),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: const <Widget>[
+          _FanOption(
+            iconAsset: AppAssets.iconFanLow,
+            title: 'Low',
+            color: AppColors.white,
+          ),
+          _FanOption(
+            iconAsset: AppAssets.iconFanMid,
+            title: 'Ceiling Fan',
+            color: Color(0xFFB9ECFF),
+            glow: true,
+          ),
+          _FanOption(
+            iconAsset: AppAssets.iconFanMax,
+            title: 'High',
+            color: AppColors.white,
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class _FanOption extends StatelessWidget {
+  const _FanOption({
     required this.iconAsset,
     required this.title,
-    required this.subtitle,
+    required this.color,
+    this.glow = false,
   });
 
   final String iconAsset;
   final String title;
-  final String subtitle;
+  final Color color;
+  final bool glow;
+
+  @override
+  Widget build(BuildContext context) {
+    return Expanded(
+      child: Column(
+        children: <Widget>[
+          Container(
+            width: 44.w,
+            height: 44.w,
+            decoration: BoxDecoration(
+              shape: BoxShape.circle,
+              boxShadow: glow
+                  ? <BoxShadow>[
+                      BoxShadow(
+                        color: color.withValues(alpha: 0.62),
+                        blurRadius: 14.r,
+                      ),
+                    ]
+                  : null,
+            ),
+            child: Center(
+              child: Image.asset(
+                iconAsset,
+                width: 33.w,
+                height: 33.w,
+                color: color,
+                colorBlendMode: BlendMode.srcIn,
+              ),
+            ),
+          ),
+          SizedBox(height: 14.h),
+          Text(
+            title,
+            textAlign: TextAlign.center,
+            style: AppTypography.regular24.copyWith(
+              color: color,
+              fontSize: 22.sp,
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class _RoomSelector extends StatelessWidget {
+  const _RoomSelector();
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: <Widget>[
+        _RoomArrowButton(
+          icon: Icons.chevron_left_rounded,
+          color: const Color(0xA6D6CDC3),
+          iconColor: const Color(0xA34A4A4A),
+          onTap: () {},
+        ),
+        SizedBox(width: 26.w),
+        Text(
+          'BEDROOM',
+          style: AppTypography.caps24.copyWith(
+            color: AppColors.white,
+            fontSize: 31.sp,
+            letterSpacing: 5.w,
+          ),
+        ),
+        SizedBox(width: 26.w),
+        _RoomArrowButton(
+          icon: Icons.chevron_right_rounded,
+          color: const Color(0xF1F3F0EB),
+          iconColor: const Color(0xA34A4A4A),
+          onTap: () {},
+        ),
+      ],
+    );
+  }
+}
+
+class _RoomArrowButton extends StatelessWidget {
+  const _RoomArrowButton({
+    required this.icon,
+    required this.color,
+    required this.iconColor,
+    required this.onTap,
+  });
+
+  final IconData icon;
+  final Color color;
+  final Color iconColor;
+  final VoidCallback onTap;
+
+  @override
+  Widget build(BuildContext context) {
+    return Material(
+      color: color,
+      borderRadius: BorderRadius.circular(14.r),
+      child: InkWell(
+        onTap: onTap,
+        borderRadius: BorderRadius.circular(14.r),
+        child: SizedBox(
+          width: 54.w,
+          height: 54.w,
+          child: Icon(icon, color: iconColor, size: 36.sp),
+        ),
+      ),
+    );
+  }
+}
+
+class _ExpandableControlRow extends StatelessWidget {
+  const _ExpandableControlRow({required this.iconAsset, required this.title});
+
+  final String iconAsset;
+  final String title;
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      children: <Widget>[
+        Image.asset(
+          iconAsset,
+          width: 30.w,
+          height: 30.w,
+          color: AppColors.white,
+          colorBlendMode: BlendMode.srcIn,
+        ),
+        SizedBox(width: 12.w),
+        Expanded(
+          child: Text(
+            title,
+            style: AppTypography.caps24.copyWith(
+              color: AppColors.white,
+              fontSize: 38.sp,
+              letterSpacing: 5.2.w,
+            ),
+          ),
+        ),
+        Icon(
+          Icons.keyboard_arrow_down_rounded,
+          color: AppColors.white,
+          size: 42.sp,
+        ),
+      ],
+    );
+  }
+}
+
+class _DividerLine extends StatelessWidget {
+  const _DividerLine();
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      width: double.infinity,
+      height: 1.h,
+      color: const Color(0x66FFFFFF),
+    );
+  }
+}
+
+class _SceneItem {
+  const _SceneItem({
+    required this.title,
+    required this.iconAsset,
+    required this.accent,
+  });
+
+  final String title;
+  final String iconAsset;
+  final Color accent;
 }

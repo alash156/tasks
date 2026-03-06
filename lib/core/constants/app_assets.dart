@@ -4,6 +4,7 @@ class AppAssets {
   static const String authBackground = 'assets/images/image1.jpg';
   static const String loginBackground = authBackground;
   static const String signUpBackground = authBackground;
+  static const String profileAvatar = 'assets/images/image3man.jpg';
 
   static const String facebook = 'assets/icons/auth/facebookicon.png';
   static const String instagram = 'assets/icons/auth/instaicon.png';

@@ -2,7 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../../../core/constants/app_assets.dart';
+import '../../../../core/theme/app_colors.dart';
 import '../../../../core/theme/app_effects.dart';
+import '../../../../core/theme/app_typography.dart';
 import '../../../../shared/widgets/app_glass_container.dart';
 
 class HomeBottomNav extends StatelessWidget {
@@ -15,32 +17,31 @@ class HomeBottomNav extends StatelessWidget {
   final int currentIndex;
   final ValueChanged<int> onTap;
 
-  static const List<String> _icons = <String>[
-    AppAssets.iconHome,
-    AppAssets.iconBed,
-    AppAssets.iconBook,
-    AppAssets.iconWellness,
-    AppAssets.iconSupport,
+  static const List<_NavItemData> _items = <_NavItemData>[
+    _NavItemData(iconAsset: AppAssets.iconHome, label: 'HOME'),
+    _NavItemData(iconAsset: AppAssets.iconBook, label: 'BOOK'),
+    _NavItemData(iconAsset: AppAssets.iconBed, label: 'MY STAY'),
+    _NavItemData(iconAsset: AppAssets.iconWellness, label: 'WELLNESS'),
+    _NavItemData(iconAsset: AppAssets.iconSupport, label: 'SUPPORT'),
   ];
 
   @override
   Widget build(BuildContext context) {
     return AppGlassContainer(
-      recipe: AppEffects.darkSurfaceTopShadow,
-      borderRadius: BorderRadius.circular(28.r),
-      border: Border.all(color: const Color(0x52FFFFFF)),
-      padding: EdgeInsets.symmetric(horizontal: 10.w, vertical: 8.h),
+      recipe: AppEffects.darkGlassBlur30ShadowLarge,
+      borderRadius: BorderRadius.circular(30.r),
+      border: Border.all(color: const Color(0x70FFFFFF)),
+      padding: EdgeInsets.symmetric(horizontal: 8.w, vertical: 8.h),
       child: Row(
-        children: List<Widget>.generate(_icons.length, (int index) {
+        children: List<Widget>.generate(_items.length, (int index) {
           final isActive = index == currentIndex;
+          final item = _items[index];
+
           return Expanded(
-            child: Padding(
-              padding: EdgeInsets.symmetric(horizontal: 3.w),
-              child: _NavIconButton(
-                iconAsset: _icons[index],
-                isActive: isActive,
-                onTap: () => onTap(index),
-              ),
+            child: _NavButton(
+              item: item,
+              isActive: isActive,
+              onTap: () => onTap(index),
             ),
           );
         }),
@@ -49,41 +50,53 @@ class HomeBottomNav extends StatelessWidget {
   }
 }
 
-class _NavIconButton extends StatelessWidget {
-  const _NavIconButton({
-    required this.iconAsset,
+class _NavButton extends StatelessWidget {
+  const _NavButton({
+    required this.item,
     required this.isActive,
     required this.onTap,
   });
 
-  final String iconAsset;
+  final _NavItemData item;
   final bool isActive;
   final VoidCallback onTap;
 
   @override
   Widget build(BuildContext context) {
-    return AnimatedContainer(
-      duration: const Duration(milliseconds: 220),
-      decoration: BoxDecoration(
-        color: isActive ? const Color(0x30FFFFFF) : Colors.transparent,
+    return Material(
+      color: Colors.transparent,
+      child: InkWell(
+        onTap: onTap,
         borderRadius: BorderRadius.circular(16.r),
-      ),
-      child: Material(
-        color: Colors.transparent,
-        child: InkWell(
-          onTap: onTap,
-          borderRadius: BorderRadius.circular(16.r),
-          child: SizedBox(
-            height: 52.h,
-            child: Center(
-              child: Opacity(
-                opacity: isActive ? 1 : 0.72,
-                child: Image.asset(iconAsset, width: 24.w, height: 24.w),
+        child: SizedBox(
+          height: 66.h,
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: <Widget>[
+              Opacity(
+                opacity: isActive ? 1 : 0.82,
+                child: Image.asset(item.iconAsset, width: 24.w, height: 24.w),
               ),
-            ),
+              SizedBox(height: 6.h),
+              Text(
+                item.label,
+                style: AppTypography.caps10.copyWith(
+                  color: isActive ? AppColors.white : AppColors.mutedText,
+                  fontSize: 10.sp,
+                  letterSpacing: 1.5.w,
+                ),
+              ),
+            ],
           ),
         ),
       ),
     );
   }
+}
+
+class _NavItemData {
+  const _NavItemData({required this.iconAsset, required this.label});
+
+  final String iconAsset;
+  final String label;
 }
