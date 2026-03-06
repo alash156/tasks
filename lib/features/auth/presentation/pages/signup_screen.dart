@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../../../core/constants/app_assets.dart';
 import '../../../../core/extensions/theme_context_extension.dart';
 import '../../../../core/theme/app_colors.dart';
 import '../../../../core/theme/app_typography.dart';
 import '../../../../shared/widgets/app_glass_button.dart';
+import '../../../home/presentation/pages/home_screen.dart';
 import '../../application/signup_form_controller.dart';
 import '../widgets/auth_checkbox_tile.dart';
 import '../widgets/auth_footer_prompt.dart';
@@ -84,52 +86,53 @@ class SignUpScreen extends ConsumerWidget {
                   constraints: BoxConstraints(minHeight: constraints.maxHeight),
                   child: IntrinsicHeight(
                     child: Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 22),
+                      padding: EdgeInsets.symmetric(horizontal: 24.w),
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.stretch,
                         children: <Widget>[
-                          SizedBox(height: constraints.maxHeight * 0.07),
+                          SizedBox(height: 62.h),
                           Text(
                             'WELCOME BACK TO\nJAYASOM WELLNESS',
                             textAlign: TextAlign.center,
                             style: AppTypography.caps24.copyWith(
                               color: AppColors.white,
-                              letterSpacing: 5.2,
-                              height: 1.55,
+                              fontSize: 24.sp,
+                              letterSpacing: 5.w,
+                              height: 1.45,
                             ),
                           ),
-                          SizedBox(height: constraints.maxHeight * 0.05),
+                          SizedBox(height: 62.h),
                           AuthUnderlineInput(
                             label: 'FIRST NAME',
                             onChanged: controller.onFirstNameChanged,
-                            trailing: const Icon(
+                            trailing: Icon(
                               Icons.person_outline_rounded,
                               color: AppColors.white,
-                              size: 30,
+                              size: 28.sp,
                             ),
                           ),
-                          const SizedBox(height: 28),
+                          SizedBox(height: 28.h),
                           AuthUnderlineInput(
                             label: 'LAST NAME',
                             onChanged: controller.onLastNameChanged,
-                            trailing: const Icon(
+                            trailing: Icon(
                               Icons.person_outline_rounded,
                               color: AppColors.white,
-                              size: 30,
+                              size: 28.sp,
                             ),
                           ),
-                          const SizedBox(height: 28),
+                          SizedBox(height: 28.h),
                           AuthUnderlineInput(
                             label: 'EMAIL',
                             keyboardType: TextInputType.emailAddress,
                             onChanged: controller.onEmailChanged,
-                            trailing: const Icon(
+                            trailing: Icon(
                               Icons.mail_outline_rounded,
                               color: AppColors.white,
-                              size: 30,
+                              size: 28.sp,
                             ),
                           ),
-                          const SizedBox(height: 28),
+                          SizedBox(height: 28.h),
                           AuthUnderlineInput(
                             label: 'PASSWORD',
                             obscureText: state.obscurePassword,
@@ -144,11 +147,11 @@ class SignUpScreen extends ConsumerWidget {
                                     ? Icons.visibility_outlined
                                     : Icons.visibility_off_outlined,
                                 color: AppColors.white,
-                                size: 31,
+                                size: 29.sp,
                               ),
                             ),
                           ),
-                          const SizedBox(height: 28),
+                          SizedBox(height: 28.h),
                           AuthSelectField(
                             label: 'COUNTRY OF RESIDENCE',
                             value: state.country,
@@ -176,7 +179,17 @@ class SignUpScreen extends ConsumerWidget {
                             label: 'SIGN UP',
                             isLoading: state.isSubmitting,
                             onPressed: state.canSubmit
-                                ? controller.submit
+                                ? () async {
+                                    await controller.submit();
+                                    if (!context.mounted) {
+                                      return;
+                                    }
+                                    Navigator.of(context).pushReplacement(
+                                      MaterialPageRoute<void>(
+                                        builder: (_) => const HomeScreen(),
+                                      ),
+                                    );
+                                  }
                                 : null,
                           ),
                           const SizedBox(height: 28),

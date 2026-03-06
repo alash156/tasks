@@ -22,14 +22,15 @@ class SignUpFormState {
   final bool isSubmitting;
 
   bool get canSubmit {
-    return firstName.trim().isNotEmpty &&
-        lastName.trim().isNotEmpty &&
-        email.trim().isNotEmpty &&
-        password.isNotEmpty &&
-        country.trim().isNotEmpty &&
-        acceptConditions &&
-        acceptHealthProcessing &&
-        !isSubmitting;
+    return true;
+    // return firstName.trim().isNotEmpty &&
+    //     lastName.trim().isNotEmpty &&
+    //     email.trim().isNotEmpty &&
+    //     password.isNotEmpty &&
+    //     country.trim().isNotEmpty &&
+    //     acceptConditions &&
+    //     acceptHealthProcessing &&
+    //     !isSubmitting;
   }
 
   SignUpFormState copyWith({

@@ -5,6 +5,7 @@ import '../../../../core/extensions/theme_context_extension.dart';
 import '../../../../core/theme/app_colors.dart';
 import '../../../../core/theme/app_typography.dart';
 import '../../../../shared/widgets/app_glass_button.dart';
+import '../../../home/presentation/pages/home_screen.dart';
 import '../../application/login_form_controller.dart';
 import 'signup_screen.dart';
 import '../widgets/auth_footer_prompt.dart';
@@ -102,7 +103,17 @@ class LoginScreen extends ConsumerWidget {
                             label: 'SIGN IN',
                             isLoading: state.isSubmitting,
                             onPressed: state.canSubmit
-                                ? controller.submit
+                                ? () async {
+                                    await controller.submit();
+                                    if (!context.mounted) {
+                                      return;
+                                    }
+                                    Navigator.of(context).pushReplacement(
+                                      MaterialPageRoute<void>(
+                                        builder: (_) => const HomeScreen(),
+                                      ),
+                                    );
+                                  }
                                 : null,
                           ),
                           const SizedBox(height: 34),
