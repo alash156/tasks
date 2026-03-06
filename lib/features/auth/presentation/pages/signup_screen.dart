@@ -106,20 +106,24 @@ class SignUpScreen extends ConsumerWidget {
                           AuthUnderlineInput(
                             label: 'FIRST NAME',
                             onChanged: controller.onFirstNameChanged,
-                            trailing: Icon(
-                              Icons.person_outline_rounded,
+                            trailing: Image.asset(
+                              AppAssets.iconUser,
                               color: AppColors.white,
-                              size: 28.sp,
+                              colorBlendMode: BlendMode.srcIn,
+                              width: 26.w,
+                              height: 26.w,
                             ),
                           ),
                           SizedBox(height: 28.h),
                           AuthUnderlineInput(
                             label: 'LAST NAME',
                             onChanged: controller.onLastNameChanged,
-                            trailing: Icon(
-                              Icons.person_outline_rounded,
+                            trailing: Image.asset(
+                              AppAssets.iconUser,
                               color: AppColors.white,
-                              size: 28.sp,
+                              colorBlendMode: BlendMode.srcIn,
+                              width: 26.w,
+                              height: 26.w,
                             ),
                           ),
                           SizedBox(height: 28.h),
@@ -127,10 +131,12 @@ class SignUpScreen extends ConsumerWidget {
                             label: 'EMAIL',
                             keyboardType: TextInputType.emailAddress,
                             onChanged: controller.onEmailChanged,
-                            trailing: Icon(
-                              Icons.mail_outline_rounded,
+                            trailing: Image.asset(
+                              AppAssets.iconMail,
                               color: AppColors.white,
-                              size: 28.sp,
+                              colorBlendMode: BlendMode.srcIn,
+                              width: 26.w,
+                              height: 26.w,
                             ),
                           ),
                           SizedBox(height: 28.h),
@@ -143,12 +149,12 @@ class SignUpScreen extends ConsumerWidget {
                               onPressed: controller.togglePasswordVisibility,
                               padding: EdgeInsets.zero,
                               visualDensity: VisualDensity.compact,
-                              icon: Icon(
-                                state.obscurePassword
-                                    ? Icons.visibility_outlined
-                                    : Icons.visibility_off_outlined,
+                              icon: Image.asset(
+                                AppAssets.iconEye,
                                 color: AppColors.white,
-                                size: 29.sp,
+                                colorBlendMode: BlendMode.srcIn,
+                                width: 26.w,
+                                height: 26.w,
                               ),
                             ),
                           ),

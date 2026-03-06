@@ -11,6 +11,9 @@ class AppAssets {
   static const String instagram = 'assets/icons/auth/instaicon.png';
   static const String google = 'assets/icons/auth/googleicon.png';
   static const String apple = 'assets/icons/auth/appleicon.png';
+  static const String iconMail = 'assets/icons/auth/iconmail.png';
+  static const String iconUser = 'assets/icons/auth/iconuser.png';
+  static const String iconEye = 'assets/icons/auth/iconeye.png';
 
   static const String iconHome = 'assets/icons/navbar/iconhome.png';
   static const String iconBed = 'assets/icons/navbar/iconbed.png';

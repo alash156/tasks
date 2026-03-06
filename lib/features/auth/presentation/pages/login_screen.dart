@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+import '../../../../core/constants/app_assets.dart';
 import '../../../../core/extensions/theme_context_extension.dart';
 import '../../../../core/theme/app_colors.dart';
 import '../../../../core/theme/app_effects.dart';
@@ -54,10 +55,12 @@ class LoginScreen extends ConsumerWidget {
                             label: 'EMAIL',
                             keyboardType: TextInputType.emailAddress,
                             onChanged: controller.onEmailChanged,
-                            trailing: const Icon(
-                              Icons.mail_outline_rounded,
+                            trailing: Image.asset(
+                              AppAssets.iconMail,
+                              width: 28,
+                              height: 28,
                               color: AppColors.white,
-                              size: 30,
+                              colorBlendMode: BlendMode.srcIn,
                             ),
                           ),
                           const SizedBox(height: 30),
@@ -70,12 +73,12 @@ class LoginScreen extends ConsumerWidget {
                               onPressed: controller.togglePasswordVisibility,
                               padding: EdgeInsets.zero,
                               visualDensity: VisualDensity.compact,
-                              icon: Icon(
-                                state.obscurePassword
-                                    ? Icons.visibility_outlined
-                                    : Icons.visibility_off_outlined,
+                              icon: Image.asset(
+                                AppAssets.iconEye,
+                                width: 28,
+                                height: 28,
                                 color: AppColors.white,
-                                size: 31,
+                                colorBlendMode: BlendMode.srcIn,
                               ),
                             ),
                           ),
