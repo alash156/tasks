@@ -30,7 +30,7 @@ class HomeBottomNav extends StatelessWidget {
     return AppGlassContainer(
       recipe: AppEffects.frostedWhiteBlur30Strong,
       borderRadius: BorderRadius.circular(30.r),
-      border: Border.all(color: const Color(0x6EFFFFFF)),
+      border: Border.all(color: const Color(0x76FFFFFF)),
       padding: EdgeInsets.symmetric(horizontal: 8.w, vertical: 8.h),
       child: Row(
         children: List<Widget>.generate(_items.length, (int index) {

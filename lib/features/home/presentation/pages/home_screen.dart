@@ -1,3 +1,5 @@
+import 'dart:ui' show ImageFilter;
+
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -86,10 +88,13 @@ class HomeScreen extends ConsumerWidget {
       body: Stack(
         fit: StackFit.expand,
         children: <Widget>[
-          Image.asset(
-            AppAssets.homeBackground,
-            fit: BoxFit.cover,
-            alignment: Alignment.center,
+          ImageFiltered(
+            imageFilter: ImageFilter.blur(sigmaX: 5, sigmaY: 5),
+            child: Image.asset(
+              AppAssets.homeBackground,
+              fit: BoxFit.cover,
+              alignment: Alignment.center,
+            ),
           ),
           const DecoratedBox(
             decoration: BoxDecoration(
@@ -298,7 +303,7 @@ class _ProfileHeaderCard extends StatelessWidget {
     return AppGlassContainer(
       recipe: AppEffects.frostedWhiteBlur30,
       borderRadius: BorderRadius.circular(34.r),
-      border: Border.all(color: const Color(0x66FFFFFF)),
+      border: Border.all(color: const Color(0x70FFFFFF)),
       padding: EdgeInsets.symmetric(horizontal: 14.w, vertical: 14.h),
       child: Row(
         children: <Widget>[
@@ -402,7 +407,7 @@ class _SceneTile extends StatelessWidget {
       recipe: AppEffects.frostedWhiteBlur30,
       borderRadius: BorderRadius.circular(24.r),
       border: Border.all(
-        color: isSelected ? const Color(0x8FFFFFFF) : const Color(0x5CBFD0D8),
+        color: isSelected ? const Color(0x96FFFFFF) : const Color(0x62BFD0D8),
       ),
       child: Material(
         color: Colors.transparent,
@@ -466,7 +471,7 @@ class _FanControlPanel extends StatelessWidget {
     return AppGlassContainer(
       recipe: AppEffects.frostedWhiteBlur30Strong,
       borderRadius: BorderRadius.circular(28.r),
-      border: Border.all(color: const Color(0x78FFFFFF)),
+      border: Border.all(color: const Color(0x82FFFFFF)),
       padding: EdgeInsets.symmetric(horizontal: 18.w, vertical: 18.h),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,

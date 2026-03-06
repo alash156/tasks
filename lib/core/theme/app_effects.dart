@@ -42,8 +42,8 @@ class AppEffects {
 
   static const Color overlayBlack12 = Color(0x1F000000); // #0000001F
   static const Color overlayWhite12 = Color(0x1FFFFFFF); // #FFFFFF1F
-  static const Color overlayWhite22 = Color(0x24FFFFFF); // White-ish glass
-  static const Color overlayWhite30 = Color(0x2EFFFFFF); // Stronger white glass
+  static const Color overlayWhite22 = Color(0x1EFFFFFF); // White-ish glass
+  static const Color overlayWhite30 = Color(0x28FFFFFF); // Stronger white glass
   static const Color surfaceWhite = Color(0xFFFFFFFF); // #FFFFFF
 
   static const BoxShadow shadowLarge = BoxShadow(
