@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 
 import '../../../../core/constants/app_assets.dart';
 import '../../../../core/theme/app_colors.dart';
@@ -60,7 +61,7 @@ class _HomeIconButton extends StatelessWidget {
             width: 48.w,
             height: 48.w,
             child: Center(
-              child: Image.asset(
+              child: SvgPicture.asset(
                 iconAsset,
                 width: 22.w,
                 height: 22.w,

@@ -22,14 +22,27 @@ class SignUpFormState {
   final bool isSubmitting;
 
   bool get canSubmit {
-    return firstName.trim().isNotEmpty &&
-        lastName.trim().isNotEmpty &&
-        email.trim().isNotEmpty &&
-        password.isNotEmpty &&
-        country.trim().isNotEmpty &&
-        acceptConditions &&
-        acceptHealthProcessing &&
-        !isSubmitting;
+    return validationErrors.isEmpty && !isSubmitting;
+  }
+
+  List<String> get validationErrors {
+    final errors = <String>[];
+    if (firstName.trim().isEmpty) errors.add('First name is required');
+    if (lastName.trim().isEmpty) errors.add('Last name is required');
+    if (email.trim().isEmpty) {
+      errors.add('Email is required');
+    } else if (!RegExp(r'^[^@]+@[^@]+\.[^@]+$').hasMatch(email.trim())) {
+      errors.add('Enter a valid email address');
+    }
+    if (password.isEmpty) {
+      errors.add('Password is required');
+    } else if (password.length < 6) {
+      errors.add('Password must be at least 6 characters');
+    }
+    if (country.trim().isEmpty) errors.add('Country is required');
+    if (!acceptConditions) errors.add('Accept the conditions of use');
+    if (!acceptHealthProcessing) errors.add('Accept health data processing');
+    return errors;
   }
 
   SignUpFormState copyWith({

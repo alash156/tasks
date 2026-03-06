@@ -3,6 +3,7 @@ import 'dart:ui' show ImageFilter;
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 
 import '../../../../core/constants/app_assets.dart';
 import '../../../../core/theme/app_colors.dart';
@@ -40,6 +41,25 @@ class HomeSelectedSceneNotifier extends Notifier<int> {
   }
 }
 
+Widget _buildIcon(String asset, double size, Color color) {
+  if (asset.endsWith('.svg')) {
+    return SvgPicture.asset(
+      asset,
+      width: size,
+      height: size,
+      fit: BoxFit.contain,
+      colorFilter: ColorFilter.mode(color, BlendMode.srcIn),
+    );
+  }
+  return Image.asset(
+    asset,
+    width: size,
+    height: size,
+    color: color,
+    colorBlendMode: BlendMode.srcIn,
+  );
+}
+
 class HomeScreen extends ConsumerStatefulWidget {
   const HomeScreen({super.key});
 
@@ -49,7 +69,14 @@ class HomeScreen extends ConsumerStatefulWidget {
 
 class _HomeScreenState extends ConsumerState<HomeScreen> {
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
+  final ScrollController _scrollController = ScrollController();
   bool _isLightingScenesExpanded = true;
+
+  @override
+  void dispose() {
+    _scrollController.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -74,7 +101,7 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
       ),
       _SceneItem(
         title: 'PRIVACY',
-        iconAsset: AppAssets.iconCurtain,
+        iconAsset: AppAssets.privacy,
         accent: Color(0xFFEEA28D),
       ),
       _SceneItem(
@@ -139,6 +166,7 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
             child: Padding(
               padding: EdgeInsets.symmetric(horizontal: 18.w),
               child: SingleChildScrollView(
+                controller: _scrollController,
                 physics: const BouncingScrollPhysics(),
                 padding: EdgeInsets.only(top: 4.h, bottom: 134.h),
                 child: Column(
@@ -191,12 +219,10 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
                               //   size: 34.sp,
                               // ),
                               Center(
-                                child: Image.asset(
+                                child: _buildIcon(
                                   AppAssets.iconLamp,
-                                  width: 32.w,
-                                  height: 32.w,
-                                  color: AppColors.white,
-                                  colorBlendMode: BlendMode.srcIn,
+                                  32.w,
+                                  AppColors.white,
                                 ),
                               ),
                               SizedBox(width: 12.w),
@@ -298,9 +324,39 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
               ),
             ),
           ),
-          Positioned(
-            right: 4.w,
-            top: 0.44.sh,
+          AnimatedBuilder(
+            animation: _scrollController,
+            builder: (BuildContext context, Widget? child) {
+              final hasScroll =
+                  _scrollController.hasClients &&
+                  _scrollController.position.hasContentDimensions;
+              final pos = hasScroll ? _scrollController.position.pixels : 0.0;
+              final maxExtent = hasScroll
+                  ? _scrollController.position.maxScrollExtent
+                  : 1.0;
+              final viewHeight = MediaQuery.of(context).size.height;
+              final thumbH = 56.h;
+              final safeTop = MediaQuery.of(context).padding.top;
+              final trackTop = safeTop + 80.h;
+              final trackBottom = viewHeight - 140.h;
+              final trackLength = trackBottom - trackTop - thumbH;
+              final fraction = maxExtent > 0
+                  ? (pos / maxExtent).clamp(0.0, 1.0)
+                  : 0.0;
+              final top = trackTop + fraction * trackLength;
+
+              return Positioned(
+                right: 4.w,
+                top: top,
+                child: IgnorePointer(
+                  child: AnimatedOpacity(
+                    opacity: maxExtent > 0 ? 1.0 : 0.0,
+                    duration: const Duration(milliseconds: 200),
+                    child: child,
+                  ),
+                ),
+              );
+            },
             child: Container(
               width: 7.w,
               height: 56.h,
@@ -389,7 +445,7 @@ class _ProfileHeaderCard extends StatelessWidget {
           Stack(
             clipBehavior: Clip.none,
             children: <Widget>[
-              Image.asset(
+              SvgPicture.asset(
                 AppAssets.iconBell,
                 width: 28.w,
                 height: 28.w,
@@ -427,7 +483,7 @@ class _ProfileHeaderCard extends StatelessWidget {
               borderRadius: BorderRadius.circular(10.r),
               child: Padding(
                 padding: EdgeInsets.all(2.w),
-                child: Image.asset(
+                child: SvgPicture.asset(
                   AppAssets.iconMenu,
                   width: 34.w,
                   height: 20.h,
@@ -485,13 +541,7 @@ class _SceneTile extends StatelessWidget {
                     ],
                   ),
                   child: Center(
-                    child: Image.asset(
-                      item.iconAsset,
-                      width: 21.w,
-                      height: 21.w,
-                      color: item.accent,
-                      colorBlendMode: BlendMode.srcIn,
-                    ),
+                    child: _buildIcon(item.iconAsset, 21.w, item.accent),
                   ),
                 ),
                 SizedBox(height: 10.h),
@@ -583,15 +633,7 @@ class _FanOption extends StatelessWidget {
                     ]
                   : null,
             ),
-            child: Center(
-              child: Image.asset(
-                iconAsset,
-                width: 33.w,
-                height: 33.w,
-                color: color,
-                colorBlendMode: BlendMode.srcIn,
-              ),
-            ),
+            child: Center(child: _buildIcon(iconAsset, 33.w, color)),
           ),
           SizedBox(height: 2.h),
           Text(
@@ -617,7 +659,7 @@ class _RoomSelector extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.center,
       children: <Widget>[
         _RoomArrowButton(
-          icon: Icons.chevron_left_rounded,
+          iconAsset: AppAssets.iconChevronLeft,
           color: const Color(0xA6D6CDC3),
           iconColor: const Color(0xA34A4A4A),
           onTap: () {},
@@ -633,7 +675,7 @@ class _RoomSelector extends StatelessWidget {
         ),
         SizedBox(width: 26.w),
         _RoomArrowButton(
-          icon: Icons.chevron_right_rounded,
+          iconAsset: AppAssets.iconChevronRight,
           color: const Color(0xF1F3F0EB),
           iconColor: const Color(0xA34A4A4A),
           onTap: () {},
@@ -645,13 +687,13 @@ class _RoomSelector extends StatelessWidget {
 
 class _RoomArrowButton extends StatelessWidget {
   const _RoomArrowButton({
-    required this.icon,
+    required this.iconAsset,
     required this.color,
     required this.iconColor,
     required this.onTap,
   });
 
-  final IconData icon;
+  final String iconAsset;
   final Color color;
   final Color iconColor;
   final VoidCallback onTap;
@@ -667,7 +709,7 @@ class _RoomArrowButton extends StatelessWidget {
         child: SizedBox(
           width: 54.w,
           height: 54.w,
-          child: Icon(icon, color: iconColor, size: 30.sp),
+          child: Center(child: _buildIcon(iconAsset, 30.w, iconColor)),
         ),
       ),
     );
@@ -684,13 +726,7 @@ class _ExpandableControlRow extends StatelessWidget {
   Widget build(BuildContext context) {
     return Row(
       children: <Widget>[
-        Image.asset(
-          iconAsset,
-          width: 30.w,
-          height: 30.w,
-          color: AppColors.white,
-          colorBlendMode: BlendMode.srcIn,
-        ),
+        _buildIcon(iconAsset, 30.w, AppColors.white),
         SizedBox(width: 12.w),
         Expanded(
           child: Text(

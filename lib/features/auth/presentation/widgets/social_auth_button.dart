@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 
 import '../../../../core/theme/app_effects.dart';
 import '../../../../shared/widgets/app_glass_container.dart';
@@ -33,12 +34,19 @@ class SocialAuthButton extends StatelessWidget {
             width: size,
             height: size,
             child: Center(
-              child: Image.asset(
-                iconAsset,
-                width: iconSize,
-                height: iconSize,
-                fit: BoxFit.contain,
-              ),
+              child: iconAsset.endsWith('.svg')
+                  ? SvgPicture.asset(
+                      iconAsset,
+                      width: iconSize,
+                      height: iconSize,
+                      fit: BoxFit.contain,
+                    )
+                  : Image.asset(
+                      iconAsset,
+                      width: iconSize,
+                      height: iconSize,
+                      fit: BoxFit.contain,
+                    ),
             ),
           ),
         ),

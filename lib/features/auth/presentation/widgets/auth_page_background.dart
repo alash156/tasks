@@ -20,7 +20,7 @@ class AuthPageBackground extends StatelessWidget {
       children: <Widget>[
         Image.asset(
           backgroundAsset,
-          fit: BoxFit.fill,
+          fit: BoxFit.cover,
           alignment: Alignment.center,
         ),
         const DecoratedBox(

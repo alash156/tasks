@@ -108,8 +108,8 @@ class AppEffects {
   );
 
   static const AppSurfaceRecipe frostedWhiteBlur30Strong = AppSurfaceRecipe(
-    backgroundColor: overlayWhite30,
-    blur: 30,
+    backgroundColor: Color(0x33FFFFFF), // 20% white
+    blur: 30, // sigma ~17.8, clean frosted glass
     shadows: <BoxShadow>[shadowLarge],
   );
 

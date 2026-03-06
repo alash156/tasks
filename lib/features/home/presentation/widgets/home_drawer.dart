@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 
 import '../../../../core/constants/app_assets.dart';
 import '../../../../core/theme/app_colors.dart';
@@ -18,10 +19,17 @@ class HomeDrawer extends StatefulWidget {
 }
 
 class _HomeDrawerState extends State<HomeDrawer> {
+  final ScrollController _scrollController = ScrollController();
   bool _mainCategoriesExpanded = true;
   bool _wellnessHubExpanded = true;
   bool _myRequestsExpanded = true;
   bool _exploreExpanded = true;
+
+  @override
+  void dispose() {
+    _scrollController.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -39,6 +47,7 @@ class _HomeDrawerState extends State<HomeDrawer> {
           child: Stack(
             children: <Widget>[
               SingleChildScrollView(
+                controller: _scrollController,
                 padding: EdgeInsets.fromLTRB(24.w, 18.h, 20.w, 30.h),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -219,9 +228,40 @@ class _HomeDrawerState extends State<HomeDrawer> {
                   ],
                 ),
               ),
-              Positioned(
-                right: 8.w,
-                top: 0.41.sh,
+              AnimatedBuilder(
+                animation: _scrollController,
+                builder: (BuildContext context, Widget? child) {
+                  final hasScroll =
+                      _scrollController.hasClients &&
+                      _scrollController.position.hasContentDimensions;
+                  final pos = hasScroll
+                      ? _scrollController.position.pixels
+                      : 0.0;
+                  final maxExtent = hasScroll
+                      ? _scrollController.position.maxScrollExtent
+                      : 1.0;
+                  final viewHeight = MediaQuery.of(context).size.height;
+                  final thumbH = 56.h;
+                  final trackTop = 80.h;
+                  final trackBottom = viewHeight - 60.h;
+                  final trackLength = trackBottom - trackTop - thumbH;
+                  final fraction = maxExtent > 0
+                      ? (pos / maxExtent).clamp(0.0, 1.0)
+                      : 0.0;
+                  final top = trackTop + fraction * trackLength;
+
+                  return Positioned(
+                    right: 8.w,
+                    top: top,
+                    child: IgnorePointer(
+                      child: AnimatedOpacity(
+                        opacity: maxExtent > 0 ? 1.0 : 0.0,
+                        duration: const Duration(milliseconds: 200),
+                        child: child,
+                      ),
+                    ),
+                  );
+                },
                 child: Container(
                   width: 7.w,
                   height: 56.h,
@@ -270,7 +310,7 @@ class _DrawerProfileCard extends StatelessWidget {
           Stack(
             clipBehavior: Clip.none,
             children: <Widget>[
-              Image.asset(
+              SvgPicture.asset(
                 AppAssets.iconBell,
                 width: 28.w,
                 height: 28.w,
@@ -306,7 +346,7 @@ class _DrawerProfileCard extends StatelessWidget {
             borderRadius: BorderRadius.circular(10.r),
             child: Padding(
               padding: EdgeInsets.all(2.w),
-              child: Image.asset(
+              child: SvgPicture.asset(
                 AppAssets.iconMenu,
                 width: 34.w,
                 height: 22.h,
@@ -467,7 +507,7 @@ class _DrawerItem extends StatelessWidget {
         Expanded(
           child: Text(
             title,
-            style: AppTypography.regular20.copyWith(
+            style: AppTypography.regular16.copyWith(
               color: AppColors.white,
               fontSize: 16.sp,
             ),
@@ -491,13 +531,12 @@ class _DrawerIcon extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Image.asset(
+    return SvgPicture.asset(
       iconAsset,
       width: size,
       height: size,
       fit: BoxFit.contain,
-      color: color,
-      colorBlendMode: BlendMode.srcIn,
+      colorFilter: ColorFilter.mode(color, BlendMode.srcIn),
     );
   }
 }

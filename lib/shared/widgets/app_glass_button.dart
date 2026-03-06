@@ -29,8 +29,8 @@ class AppGlassButton extends StatelessWidget {
   Widget build(BuildContext context) {
     final enabled = onPressed != null && !isLoading;
 
-    return Opacity(
-      opacity: enabled ? 1 : 0.6,
+    return IgnorePointer(
+      ignoring: !enabled,
       child: AppGlassContainer(
         recipe: recipe,
         borderRadius: BorderRadius.circular(14),
@@ -44,23 +44,26 @@ class AppGlassButton extends StatelessWidget {
               height: height,
               width: double.infinity,
               child: Center(
-                child: isLoading
-                    ? const SizedBox(
-                        width: 24,
-                        height: 24,
-                        child: CircularProgressIndicator(
-                          strokeWidth: 2.2,
-                          color: AppColors.white,
+                child: Opacity(
+                  opacity: enabled ? 1 : 0.6,
+                  child: isLoading
+                      ? const SizedBox(
+                          width: 24,
+                          height: 24,
+                          child: CircularProgressIndicator(
+                            strokeWidth: 2.2,
+                            color: AppColors.white,
+                          ),
+                        )
+                      : Text(
+                          label.toUpperCase(),
+                          style: AppTypography.caps24.copyWith(
+                            color: AppColors.white,
+                            letterSpacing: 4,
+                            fontSize: labelFontSize,
+                          ),
                         ),
-                      )
-                    : Text(
-                        label.toUpperCase(),
-                        style: AppTypography.caps24.copyWith(
-                          color: AppColors.white,
-                          letterSpacing: 4,
-                          fontSize: labelFontSize,
-                        ),
-                      ),
+                ),
               ),
             ),
           ),

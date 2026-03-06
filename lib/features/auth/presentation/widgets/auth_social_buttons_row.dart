@@ -8,10 +8,8 @@ class AuthSocialButtonsRow extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Wrap(
-      alignment: WrapAlignment.center,
-      spacing: 32,
-      runSpacing: 12,
+    return const Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: <Widget>[
         SocialAuthButton(iconAsset: AppAssets.facebook),
         SocialAuthButton(iconAsset: AppAssets.instagram),

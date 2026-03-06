@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 
 import '../../../../core/constants/app_assets.dart';
 import '../../../../core/extensions/theme_context_extension.dart';
@@ -36,7 +38,7 @@ class LoginScreen extends ConsumerWidget {
                   constraints: BoxConstraints(minHeight: constraints.maxHeight),
                   child: IntrinsicHeight(
                     child: Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 26),
+                      padding: const EdgeInsets.symmetric(horizontal: 16),
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.stretch,
                         children: <Widget>[
@@ -55,12 +57,14 @@ class LoginScreen extends ConsumerWidget {
                             label: 'EMAIL',
                             keyboardType: TextInputType.emailAddress,
                             onChanged: controller.onEmailChanged,
-                            trailing: Image.asset(
+                            trailing: SvgPicture.asset(
                               AppAssets.iconMail,
-                              width: 28,
-                              height: 28,
-                              color: AppColors.white,
-                              colorBlendMode: BlendMode.srcIn,
+                              width: 20.w,
+                              height: 20.w,
+                              colorFilter: const ColorFilter.mode(
+                                AppColors.white,
+                                BlendMode.srcIn,
+                              ),
                             ),
                           ),
                           const SizedBox(height: 30),
@@ -69,16 +73,16 @@ class LoginScreen extends ConsumerWidget {
                             obscureText: state.obscurePassword,
                             textInputAction: TextInputAction.done,
                             onChanged: controller.onPasswordChanged,
-                            trailing: IconButton(
-                              onPressed: controller.togglePasswordVisibility,
-                              padding: EdgeInsets.zero,
-                              visualDensity: VisualDensity.compact,
-                              icon: Image.asset(
+                            trailing: GestureDetector(
+                              onTap: controller.togglePasswordVisibility,
+                              child: SvgPicture.asset(
                                 AppAssets.iconEye,
-                                width: 28,
-                                height: 28,
-                                color: AppColors.white,
-                                colorBlendMode: BlendMode.srcIn,
+                                width: 20.w,
+                                height: 20.w,
+                                colorFilter: const ColorFilter.mode(
+                                  AppColors.white,
+                                  BlendMode.srcIn,
+                                ),
                               ),
                             ),
                           ),
@@ -95,7 +99,7 @@ class LoginScreen extends ConsumerWidget {
                               ),
                               child: Text(
                                 'FORGOT YOUR PASSWORD?',
-                                style: context.appText.caps16.copyWith(
+                                style: context.appText.caps12.copyWith(
                                   color: AppColors.mutedText,
                                   letterSpacing: 2.1,
                                 ),
@@ -108,7 +112,7 @@ class LoginScreen extends ConsumerWidget {
                             alignment: Alignment.center,
                             child: AppGlassButton(
                               label: 'SIGN IN',
-                              height: 50,
+                              height: 50.w,
                               recipe: AppEffects.frostedWhiteBlur30Strong,
                               borderColor: Color(0x80FFFFFF),
                               labelFontSize: 19,
@@ -132,7 +136,7 @@ class LoginScreen extends ConsumerWidget {
                           Text(
                             'OR',
                             textAlign: TextAlign.center,
-                            style: context.appText.caps24.copyWith(
+                            style: context.appText.caps18.copyWith(
                               color: AppColors.white,
                               letterSpacing: 4,
                             ),

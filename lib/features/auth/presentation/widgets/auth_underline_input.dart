@@ -38,7 +38,7 @@ class AuthUnderlineInput extends StatelessWidget {
           decoration: InputDecoration(
             isDense: true,
             hintText: label,
-            hintStyle: AppTypography.caps16.copyWith(
+            hintStyle: AppTypography.caps14.copyWith(
               color: AppColors.labelText,
               letterSpacing: 4,
             ),
@@ -51,8 +51,8 @@ class AuthUnderlineInput extends StatelessWidget {
                     child: trailing,
                   ),
             suffixIconConstraints: const BoxConstraints(
-              minHeight: 24,
-              minWidth: 24,
+              minHeight: 20,
+              minWidth: 20,
             ),
           ),
         ),

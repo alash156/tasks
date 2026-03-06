@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 
 import '../../../../core/constants/app_assets.dart';
 import '../../../../core/extensions/theme_context_extension.dart';
@@ -35,10 +36,10 @@ class SignUpScreen extends ConsumerWidget {
       shape: const RoundedRectangleBorder(
         borderRadius: BorderRadius.vertical(top: Radius.circular(22)),
       ),
-      builder: (BuildContext context) {
+      builder: (BuildContext sheetContext) {
         return SafeArea(
           child: StatefulBuilder(
-            builder: (BuildContext context, StateSetter setModalState) {
+            builder: (BuildContext builderContext, StateSetter setModalState) {
               final filteredCountries = signUpCountryOptions
                   .where(
                     (String country) => country.toLowerCase().contains(
@@ -48,20 +49,20 @@ class SignUpScreen extends ConsumerWidget {
                   .toList(growable: false);
 
               return SizedBox(
-                height: MediaQuery.of(context).size.height * 0.68,
+                height: MediaQuery.of(builderContext).size.height * 0.68,
                 child: Padding(
-                  padding: EdgeInsets.fromLTRB(18.w, 12.h, 18.w, 10.h),
+                  padding: const EdgeInsets.fromLTRB(18, 12, 18, 10),
                   child: Column(
                     children: <Widget>[
                       Container(
-                        width: 44.w,
-                        height: 4.h,
+                        width: 44,
+                        height: 4,
                         decoration: BoxDecoration(
                           color: const Color(0x78FFFFFF),
-                          borderRadius: BorderRadius.circular(6.r),
+                          borderRadius: BorderRadius.circular(6),
                         ),
                       ),
-                      SizedBox(height: 14.h),
+                      const SizedBox(height: 14),
                       TextField(
                         controller: searchController,
                         onChanged: (String value) {
@@ -71,14 +72,14 @@ class SignUpScreen extends ConsumerWidget {
                         },
                         style: AppTypography.regular16.copyWith(
                           color: AppColors.white,
-                          fontSize: 14.sp,
+                          fontSize: 14,
                         ),
                         cursorColor: AppColors.white,
                         decoration: InputDecoration(
                           hintText: 'Search country',
                           hintStyle: AppTypography.regular16.copyWith(
                             color: const Color(0xB5FFFFFF),
-                            fontSize: 14.sp,
+                            fontSize: 14,
                           ),
                           prefixIcon: const Icon(
                             Icons.search_rounded,
@@ -86,25 +87,25 @@ class SignUpScreen extends ConsumerWidget {
                           ),
                           filled: true,
                           fillColor: const Color(0x1FFFFFFF),
-                          contentPadding: EdgeInsets.symmetric(
-                            horizontal: 14.w,
-                            vertical: 12.h,
+                          contentPadding: const EdgeInsets.symmetric(
+                            horizontal: 14,
+                            vertical: 12,
                           ),
                           enabledBorder: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(14.r),
+                            borderRadius: BorderRadius.circular(14),
                             borderSide: const BorderSide(
                               color: Color(0x45FFFFFF),
                             ),
                           ),
                           focusedBorder: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(14.r),
+                            borderRadius: BorderRadius.circular(14),
                             borderSide: const BorderSide(
                               color: Color(0x8AFFFFFF),
                             ),
                           ),
                         ),
                       ),
-                      SizedBox(height: 14.h),
+                      const SizedBox(height: 14),
                       Expanded(
                         child: filteredCountries.isEmpty
                             ? Center(
@@ -112,7 +113,7 @@ class SignUpScreen extends ConsumerWidget {
                                   'No country found',
                                   style: AppTypography.regular16.copyWith(
                                     color: AppColors.mutedText,
-                                    fontSize: 14.sp,
+                                    fontSize: 14,
                                   ),
                                 ),
                               )
@@ -122,7 +123,7 @@ class SignUpScreen extends ConsumerWidget {
                                   height: 1,
                                   color: Color(0x3DFFFFFF),
                                 ),
-                                itemBuilder: (BuildContext context, int index) {
+                                itemBuilder: (_, int index) {
                                   final country = filteredCountries[index];
                                   final isSelected = country == currentCountry;
 
@@ -140,8 +141,9 @@ class SignUpScreen extends ConsumerWidget {
                                             color: AppColors.white,
                                           )
                                         : null,
-                                    onTap: () =>
-                                        Navigator.of(context).pop(country),
+                                    onTap: () => Navigator.of(
+                                      builderContext,
+                                    ).pop(country),
                                   );
                                 },
                               ),
@@ -155,7 +157,6 @@ class SignUpScreen extends ConsumerWidget {
         );
       },
     );
-    searchController.dispose();
 
     if (selectedCountry == null) {
       return;
@@ -202,24 +203,28 @@ class SignUpScreen extends ConsumerWidget {
                           AuthUnderlineInput(
                             label: 'FIRST NAME',
                             onChanged: controller.onFirstNameChanged,
-                            trailing: Image.asset(
+                            trailing: SvgPicture.asset(
                               AppAssets.iconUser,
-                              color: AppColors.white,
-                              colorBlendMode: BlendMode.srcIn,
-                              width: 26.w,
-                              height: 26.w,
+                              colorFilter: const ColorFilter.mode(
+                                AppColors.white,
+                                BlendMode.srcIn,
+                              ),
+                              width: 20.w,
+                              height: 20.w,
                             ),
                           ),
                           SizedBox(height: 28.h),
                           AuthUnderlineInput(
                             label: 'LAST NAME',
                             onChanged: controller.onLastNameChanged,
-                            trailing: Image.asset(
+                            trailing: SvgPicture.asset(
                               AppAssets.iconUser,
-                              color: AppColors.white,
-                              colorBlendMode: BlendMode.srcIn,
-                              width: 26.w,
-                              height: 26.w,
+                              colorFilter: const ColorFilter.mode(
+                                AppColors.white,
+                                BlendMode.srcIn,
+                              ),
+                              width: 20.w,
+                              height: 20.w,
                             ),
                           ),
                           SizedBox(height: 28.h),
@@ -227,12 +232,14 @@ class SignUpScreen extends ConsumerWidget {
                             label: 'EMAIL',
                             keyboardType: TextInputType.emailAddress,
                             onChanged: controller.onEmailChanged,
-                            trailing: Image.asset(
+                            trailing: SvgPicture.asset(
                               AppAssets.iconMail,
-                              color: AppColors.white,
-                              colorBlendMode: BlendMode.srcIn,
-                              width: 26.w,
-                              height: 26.w,
+                              colorFilter: const ColorFilter.mode(
+                                AppColors.white,
+                                BlendMode.srcIn,
+                              ),
+                              width: 20.w,
+                              height: 20.w,
                             ),
                           ),
                           SizedBox(height: 28.h),
@@ -245,12 +252,14 @@ class SignUpScreen extends ConsumerWidget {
                               onPressed: controller.togglePasswordVisibility,
                               padding: EdgeInsets.zero,
                               visualDensity: VisualDensity.compact,
-                              icon: Image.asset(
+                              icon: SvgPicture.asset(
                                 AppAssets.iconEye,
-                                color: AppColors.white,
-                                colorBlendMode: BlendMode.srcIn,
-                                width: 26.w,
-                                height: 26.w,
+                                colorFilter: const ColorFilter.mode(
+                                  AppColors.white,
+                                  BlendMode.srcIn,
+                                ),
+                                width: 20.w,
+                                height: 20.w,
                               ),
                             ),
                           ),
@@ -288,8 +297,78 @@ class SignUpScreen extends ConsumerWidget {
                               borderColor: Color(0x80FFFFFF),
                               labelFontSize: 19,
                               isLoading: state.isSubmitting,
-                              onPressed: state.canSubmit
-                                  ? () async {
+                              onPressed: state.isSubmitting
+                                  ? null
+                                  : () async {
+                                      if (!state.canSubmit) {
+                                        final errors = state.validationErrors;
+                                        if (errors.isNotEmpty) {
+                                          ScaffoldMessenger.of(context)
+                                            ..hideCurrentSnackBar()
+                                            ..showSnackBar(
+                                              SnackBar(
+                                                content: AppGlassContainer(
+                                                  recipe: AppEffects
+                                                      .darkGlassBlur30,
+                                                  borderRadius:
+                                                      BorderRadius.circular(16),
+                                                  border: Border.all(
+                                                    color: const Color(
+                                                      0x84FFFFFF,
+                                                    ),
+                                                  ),
+                                                  padding:
+                                                      const EdgeInsets.symmetric(
+                                                        horizontal: 14,
+                                                        vertical: 12,
+                                                      ),
+                                                  child: Row(
+                                                    children: <Widget>[
+                                                      const Icon(
+                                                        Icons
+                                                            .error_outline_rounded,
+                                                        color: Color(
+                                                          0xFFFF6B6B,
+                                                        ),
+                                                        size: 18,
+                                                      ),
+                                                      const SizedBox(width: 10),
+                                                      Expanded(
+                                                        child: Text(
+                                                          errors.first,
+                                                          style: AppTypography
+                                                              .regular16
+                                                              .copyWith(
+                                                                color: AppColors
+                                                                    .white,
+                                                                fontSize: 14,
+                                                              ),
+                                                        ),
+                                                      ),
+                                                    ],
+                                                  ),
+                                                ),
+                                                behavior:
+                                                    SnackBarBehavior.floating,
+                                                duration: const Duration(
+                                                  milliseconds: 2000,
+                                                ),
+                                                padding: EdgeInsets.zero,
+                                                margin:
+                                                    const EdgeInsets.fromLTRB(
+                                                      20,
+                                                      0,
+                                                      20,
+                                                      18,
+                                                    ),
+                                                elevation: 0,
+                                                backgroundColor:
+                                                    Colors.transparent,
+                                              ),
+                                            );
+                                        }
+                                        return;
+                                      }
                                       await controller.submit();
                                       if (!context.mounted) {
                                         return;
@@ -362,15 +441,14 @@ class SignUpScreen extends ConsumerWidget {
                                       if (Navigator.of(context).canPop()) {
                                         Navigator.of(context).pop();
                                       }
-                                    }
-                                  : null,
+                                    },
                             ),
                           ),
                           const SizedBox(height: 28),
                           Text(
                             'OR',
                             textAlign: TextAlign.center,
-                            style: context.appText.caps24.copyWith(
+                            style: context.appText.caps18.copyWith(
                               color: AppColors.white,
                               letterSpacing: 4,
                             ),
@@ -378,7 +456,6 @@ class SignUpScreen extends ConsumerWidget {
                           const SizedBox(height: 24),
                           const AuthSocialButtonsRow(),
                           const SizedBox(height: 36),
-                          const Spacer(),
                           Padding(
                             padding: const EdgeInsets.only(bottom: 14),
                             child: AuthFooterPrompt(

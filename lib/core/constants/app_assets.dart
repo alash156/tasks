@@ -7,71 +7,70 @@ class AppAssets {
   static const String signUpBackground = authBackground;
   static const String profileAvatar = 'assets/images/image3man.jpg';
 
-  static const String facebook = 'assets/icons/auth/facebookicon.png';
-  static const String instagram = 'assets/icons/auth/instaicon.png';
-  static const String google = 'assets/icons/auth/googleicon.png';
-  static const String apple = 'assets/icons/auth/appleicon.png';
-  static const String iconMail = 'assets/icons/auth/iconmail.png';
-  static const String iconUser = 'assets/icons/auth/iconuser.png';
-  static const String iconEye = 'assets/icons/auth/iconeye.png';
+  static const String facebook = 'assets/icons/auth/facebook.svg';
+  static const String instagram = 'assets/icons/auth/instagram.svg';
+  static const String google = 'assets/icons/auth/google.svg';
+  static const String apple = 'assets/icons/auth/apple.svg';
+  static const String iconMail = 'assets/icons/auth/iconmail.svg';
+  static const String iconUser = 'assets/icons/auth/iconuser.svg';
+  static const String iconEye = 'assets/icons/auth/iconeye.svg';
 
-  static const String drawerMainCategories =
-      'assets/icons/drawer/maincategories.png';
-  static const String drawerMyStay = 'assets/icons/drawer/mystayicon.png';
-  static const String drawerDashboard = 'assets/icons/drawer/dashboardicon.png';
-  static const String drawerBookings = 'assets/icons/drawer/bookingsicon.png';
-  static const String drawerWellnessHub =
-      'assets/icons/drawer/wellnesshubicon.png';
-  static const String drawerMyHealth = 'assets/icons/drawer/myhealthicon.png';
+  static const String drawerMainCategories = 'assets/icons/drawer/booking.svg';
+  static const String drawerMyStay = 'assets/icons/drawer/mystay.svg';
+  static const String drawerDashboard = 'assets/icons/drawer/dashboardicon.svg';
+  static const String drawerBookings = 'assets/icons/drawer/booking.svg';
+  static const String drawerWellnessHub = 'assets/icons/drawer/wellness.svg';
+  static const String drawerMyHealth = 'assets/icons/drawer/health.svg';
   static const String drawerQuestionnaires =
-      'assets/icons/drawer/questionares.png';
-  static const String drawerMyRequests =
-      'assets/icons/drawer/myrequestsicon.png';
-  static const String drawerConcierge = 'assets/icons/drawer/conciergeicon.png';
+      'assets/icons/drawer/questionere.svg';
+  static const String drawerMyRequests = 'assets/icons/drawer/myrequest.svg';
+  static const String drawerConcierge = 'assets/icons/drawer/concierge.svg';
   static const String drawerHousekeeping =
-      'assets/icons/drawer/housekeepingicon.png';
-  static const String drawerRoomService = 'assets/icons/drawer/roomservice.png';
-  static const String drawerMaintenance =
-      'assets/icons/drawer/maintainences.png';
+      'assets/icons/drawer/housekeeping.svg';
+  static const String drawerRoomService = 'assets/icons/drawer/roomservice.svg';
+  static const String drawerMaintenance = 'assets/icons/drawer/maintenance.svg';
   static const String drawerTransportation =
-      'assets/icons/drawer/transportation.png';
-  static const String drawerOpoWellness = 'assets/icons/drawer/opowellness.png';
+      'assets/icons/drawer/transporatations.svg';
+  static const String drawerOpoWellness = 'assets/icons/drawer/opowellness.svg';
   static const String drawerChildrenTracker =
-      'assets/icons/drawer/childrentracker.png';
-  static const String drawerInRoomControl =
-      'assets/icons/drawer/inroomcontrol.png';
-  static const String drawerExplore = 'assets/icons/drawer/exploreicon.png';
-  static const String drawerResortMap = 'assets/icons/drawer/resortmap.png';
-  static const String drawerCatalogue = 'assets/icons/drawer/catalogue.png';
-  static const String drawerMenu = 'assets/icons/drawer/menu.png';
-  static const String drawerGallery = 'assets/icons/drawer/gallery.png';
-  static const String drawerBoutique = 'assets/icons/drawer/botique.png';
+      'assets/icons/drawer/childrentracker.svg';
+  static const String drawerInRoomControl = 'assets/icons/drawer/inroom.svg';
+  static const String drawerExplore = 'assets/icons/drawer/explore.svg';
+  static const String drawerResortMap = 'assets/icons/drawer/resort.svg';
+  static const String drawerCatalogue = 'assets/icons/drawer/catalogue.svg';
+  static const String drawerMenu = 'assets/icons/drawer/testmenu.svg';
+  static const String drawerGallery = 'assets/icons/drawer/gallery.svg';
+  static const String drawerBoutique = 'assets/icons/drawer/boutique.svg';
   static const String drawerServicesAndTreatments =
-      'assets/icons/drawer/services&tretments.png';
-  static const String drawerBookWithUs = 'assets/icons/drawer/bookwithus.png';
-  static const String drawerSettings = 'assets/icons/drawer/settings.png';
-  static const String drawerLogout = 'assets/icons/drawer/logout.png';
+      'assets/icons/drawer/serviceandtreatment.svg';
+  static const String drawerBookWithUs = 'assets/icons/drawer/bookwithus.svg';
+  static const String drawerSettings = 'assets/icons/drawer/testsettings.svg';
+  static const String drawerLogout = 'assets/icons/drawer/logout.svg';
 
-  static const String iconHome = 'assets/icons/navbar/iconhome.png';
-  static const String iconBed = 'assets/icons/navbar/iconbed.png';
-  static const String iconBook = 'assets/icons/navbar/iconbook.png';
-  static const String iconWellness = 'assets/icons/navbar/iconwellness.png';
-  static const String iconSupport = 'assets/icons/navbar/iconsupport.png';
+  static const String iconHome = 'assets/icons/navbar/home.svg';
+  static const String iconBed = 'assets/icons/navbar/mystay.svg';
+  static const String iconBook = 'assets/icons/navbar/book.svg';
+  static const String iconWellness = 'assets/icons/navbar/wellness.svg';
+  static const String iconSupport = 'assets/icons/navbar/support.svg';
 
-  static const String iconMenu = 'assets/icons/dashboard/iconmenu.png';
-  static const String iconBell = 'assets/icons/dashboard/iconbell.png';
-  static const String iconService = 'assets/icons/dashboard/iconservice.png';
-  static const String iconSun = 'assets/icons/dashboard/iconsun.png';
-  static const String iconCandle = 'assets/icons/dashboard/iconcandle.png';
-  static const String iconNightLight =
-      'assets/icons/dashboard/iconnightlight.png';
-  static const String iconBalcony = 'assets/icons/dashboard/iconbalcony.png';
-  static const String iconCurtain = 'assets/icons/dashboard/iconcurtain.png';
+  static const String iconMenu = 'assets/icons/dashboard/iconmenu.svg';
+  static const String iconBell = 'assets/icons/dashboard/iconbell.svg';
+  static const String iconService = 'assets/icons/dashboard/service.svg';
+  static const String iconSun = 'assets/icons/dashboard/bright.svg';
+  static const String privacy = 'assets/icons/dashboard/privacy.svg';
+  static const String iconCandle = 'assets/icons/dashboard/mood.svg';
+  static const String iconNightLight = 'assets/icons/dashboard/nightlight.svg';
+  static const String iconBalcony = 'assets/icons/dashboard/terrace.svg';
+  static const String iconCurtain = 'assets/icons/dashboard/curtainsblinds.svg';
   static const String iconClimateControl =
-      'assets/icons/dashboard/iconclimatecontrol.png';
+      'assets/icons/dashboard/climatecontrol.svg';
   static const String iconHanger = 'assets/icons/dashboard/iconhanger.png';
-  static const String iconLamp = 'assets/icons/dashboard/iconlamp.png';
+  static const String iconLamp = 'assets/icons/dashboard/lamb.svg';
   static const String iconFanLow = 'assets/icons/dashboard/iconlowfan.png';
   static const String iconFanMid = 'assets/icons/dashboard/iconfanmid.png';
   static const String iconFanMax = 'assets/icons/dashboard/iconfanmax.png';
+  static const String iconChevronLeft =
+      'assets/icons/dashboard/chevron-left.svg';
+  static const String iconChevronRight =
+      'assets/icons/dashboard/chevron-right.svg';
 }

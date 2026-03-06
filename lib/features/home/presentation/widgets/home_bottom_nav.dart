@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../../../core/constants/app_assets.dart';
@@ -69,6 +70,8 @@ class _NavButton extends StatelessWidget {
       color: Colors.transparent,
       child: InkWell(
         onTap: onTap,
+        splashColor: Colors.transparent,
+        highlightColor: Colors.transparent,
         borderRadius: BorderRadius.circular(16.r),
         child: SizedBox(
           height: 66.h,
@@ -91,12 +94,14 @@ class _NavButton extends StatelessWidget {
                 mainAxisSize: MainAxisSize.min,
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: <Widget>[
-                  Image.asset(
+                  SvgPicture.asset(
                     item.iconAsset,
                     width: 22.w,
                     height: 22.w,
-                    color: isActive ? AppColors.white : const Color(0xA8FFFFFF),
-                    colorBlendMode: BlendMode.srcIn,
+                    colorFilter: ColorFilter.mode(
+                      isActive ? AppColors.white : const Color(0xA8FFFFFF),
+                      BlendMode.srcIn,
+                    ),
                   ),
                   SizedBox(height: 6.h),
                   Text(

@@ -29,6 +29,7 @@ class AppTypography {
   static final TextStyle caps12 = _regular(12, 15);
   static final TextStyle caps14 = _regular(14, 16);
   static final TextStyle caps16 = _regular(16, 18);
+  static final TextStyle caps18 = _regular(18, 20);
   static final TextStyle caps24 = _regular(24, 28);
   static final TextStyle caps40 = _regular(40, 44);
 
@@ -65,6 +66,7 @@ class AppTypography {
     caps12: caps12,
     caps14: caps14,
     caps16: caps16,
+    caps18: caps18,
     caps24: caps24,
     caps40: caps40,
   );
@@ -87,6 +89,7 @@ class AppTextStyles extends ThemeExtension<AppTextStyles> {
     required this.caps12,
     required this.caps14,
     required this.caps16,
+    required this.caps18,
     required this.caps24,
     required this.caps40,
   });
@@ -105,6 +108,7 @@ class AppTextStyles extends ThemeExtension<AppTextStyles> {
   final TextStyle caps12;
   final TextStyle caps14;
   final TextStyle caps16;
+  final TextStyle caps18;
   final TextStyle caps24;
   final TextStyle caps40;
 
@@ -124,6 +128,7 @@ class AppTextStyles extends ThemeExtension<AppTextStyles> {
     TextStyle? caps12,
     TextStyle? caps14,
     TextStyle? caps16,
+    TextStyle? caps18,
     TextStyle? caps24,
     TextStyle? caps40,
   }) {
@@ -142,6 +147,7 @@ class AppTextStyles extends ThemeExtension<AppTextStyles> {
       caps12: caps12 ?? this.caps12,
       caps14: caps14 ?? this.caps14,
       caps16: caps16 ?? this.caps16,
+      caps18: caps18 ?? this.caps18,
       caps24: caps24 ?? this.caps24,
       caps40: caps40 ?? this.caps40,
     );
@@ -168,6 +174,7 @@ class AppTextStyles extends ThemeExtension<AppTextStyles> {
       caps12: TextStyle.lerp(caps12, other.caps12, t) ?? caps12,
       caps14: TextStyle.lerp(caps14, other.caps14, t) ?? caps14,
       caps16: TextStyle.lerp(caps16, other.caps16, t) ?? caps16,
+      caps18: TextStyle.lerp(caps18, other.caps18, t) ?? caps18,
       caps24: TextStyle.lerp(caps24, other.caps24, t) ?? caps24,
       caps40: TextStyle.lerp(caps40, other.caps40, t) ?? caps40,
     );
