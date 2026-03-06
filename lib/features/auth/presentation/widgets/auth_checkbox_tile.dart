@@ -25,8 +25,8 @@ class AuthCheckboxTile extends StatelessWidget {
         children: <Widget>[
           AnimatedContainer(
             duration: const Duration(milliseconds: 180),
-            width: 34,
-            height: 34,
+            width: 28,
+            height: 28,
             decoration: BoxDecoration(
               color: value ? const Color(0x3DFFFFFF) : const Color(0x1AFFFFFF),
               borderRadius: BorderRadius.circular(10),
@@ -46,7 +46,7 @@ class AuthCheckboxTile extends StatelessWidget {
               padding: const EdgeInsets.only(top: 4),
               child: Text(
                 label,
-                style: AppTypography.regular20.copyWith(
+                style: AppTypography.regular14.copyWith(
                   color: AppColors.mutedText,
                   height: 1.2,
                 ),

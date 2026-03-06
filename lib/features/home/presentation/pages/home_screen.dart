@@ -48,6 +48,7 @@ class HomeScreen extends ConsumerStatefulWidget {
 
 class _HomeScreenState extends ConsumerState<HomeScreen> {
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
+  bool _isLightingScenesExpanded = true;
 
   @override
   Widget build(BuildContext context) {
@@ -161,70 +162,104 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
                       ],
                     ),
                     SizedBox(height: 12.h),
-                    Row(
-                      children: <Widget>[
-                        Icon(
-                          Icons.lightbulb_outline_rounded,
-                          color: AppColors.white,
-                          size: 34.sp,
-                        ),
-                        SizedBox(width: 12.w),
-                        Expanded(
-                          child: Text(
-                            'LIGHTING & SCENES',
-                            style: AppTypography.caps24.copyWith(
-                              color: AppColors.white,
-                              fontSize: 18.sp,
-                              letterSpacing: 3.4.w,
-                            ),
+                    Material(
+                      color: Colors.transparent,
+                      child: InkWell(
+                        onTap: () {
+                          setState(() {
+                            _isLightingScenesExpanded =
+                                !_isLightingScenesExpanded;
+                          });
+                        },
+                        borderRadius: BorderRadius.circular(12.r),
+                        child: Padding(
+                          padding: EdgeInsets.symmetric(vertical: 4.h),
+                          child: Row(
+                            children: <Widget>[
+                              Icon(
+                                Icons.lightbulb_outline_rounded,
+                                color: AppColors.white,
+                                size: 34.sp,
+                              ),
+                              SizedBox(width: 12.w),
+                              Expanded(
+                                child: Text(
+                                  'LIGHTING & SCENES',
+                                  style: AppTypography.caps24.copyWith(
+                                    color: AppColors.white,
+                                    fontSize: 18.sp,
+                                    letterSpacing: 3.4.w,
+                                  ),
+                                ),
+                              ),
+                              AnimatedRotation(
+                                turns: _isLightingScenesExpanded ? 0 : 0.5,
+                                duration: const Duration(milliseconds: 180),
+                                curve: Curves.easeOut,
+                                child: Icon(
+                                  Icons.keyboard_arrow_up_rounded,
+                                  color: AppColors.white,
+                                  size: 42.sp,
+                                ),
+                              ),
+                            ],
                           ),
                         ),
-                        Icon(
-                          Icons.keyboard_arrow_up_rounded,
-                          color: AppColors.white,
-                          size: 42.sp,
-                        ),
-                      ],
-                    ),
-                    SizedBox(height: 24.h),
-                    Text(
-                      'LIVING ROOM',
-                      style: AppTypography.regular56.copyWith(
-                        color: AppColors.white,
-                        fontSize: 34.sp,
-                        letterSpacing: 1.4.w,
-                        height: 1,
                       ),
                     ),
-                    SizedBox(height: 24.h),
-                    GridView.builder(
-                      itemCount: scenes.length,
-                      shrinkWrap: true,
-                      physics: const NeverScrollableScrollPhysics(),
-                      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                        crossAxisCount: 3,
-                        crossAxisSpacing: 12.w,
-                        mainAxisSpacing: 12.h,
-                        childAspectRatio: 1.25,
+                    AnimatedCrossFade(
+                      firstChild: SizedBox(height: 4.h),
+                      secondChild: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: <Widget>[
+                          SizedBox(height: 24.h),
+                          Text(
+                            'LIVING ROOM',
+                            style: AppTypography.regular56.copyWith(
+                              color: AppColors.white,
+                              fontSize: 34.sp,
+                              letterSpacing: 1.4.w,
+                              height: 1,
+                            ),
+                          ),
+                          SizedBox(height: 24.h),
+                          GridView.builder(
+                            itemCount: scenes.length,
+                            shrinkWrap: true,
+                            physics: const NeverScrollableScrollPhysics(),
+                            gridDelegate:
+                                SliverGridDelegateWithFixedCrossAxisCount(
+                                  crossAxisCount: 3,
+                                  crossAxisSpacing: 12.w,
+                                  mainAxisSpacing: 12.h,
+                                  childAspectRatio: 1.25,
+                                ),
+                            itemBuilder: (BuildContext context, int index) {
+                              final scene = scenes[index];
+                              return _SceneTile(
+                                item: scene,
+                                isSelected: selectedScene == index,
+                                onTap: () {
+                                  ref
+                                      .read(homeSelectedSceneProvider.notifier)
+                                      .setSelected(index);
+                                },
+                              );
+                            },
+                          ),
+                          SizedBox(height: 20.h),
+                          const _FanControlPanel(),
+                          SizedBox(height: 28.h),
+                          const _RoomSelector(),
+                        ],
                       ),
-                      itemBuilder: (BuildContext context, int index) {
-                        final scene = scenes[index];
-                        return _SceneTile(
-                          item: scene,
-                          isSelected: selectedScene == index,
-                          onTap: () {
-                            ref
-                                .read(homeSelectedSceneProvider.notifier)
-                                .setSelected(index);
-                          },
-                        );
-                      },
+                      crossFadeState: _isLightingScenesExpanded
+                          ? CrossFadeState.showSecond
+                          : CrossFadeState.showFirst,
+                      duration: const Duration(milliseconds: 220),
+                      sizeCurve: Curves.easeOutCubic,
                     ),
-                    SizedBox(height: 20.h),
-                    const _FanControlPanel(),
-                    SizedBox(height: 28.h),
-                    const _RoomSelector(),
-                    SizedBox(height: 22.h),
+                    SizedBox(height: _isLightingScenesExpanded ? 22.h : 12.h),
                     const _DividerLine(),
                     SizedBox(height: 20.h),
                     const _ExpandableControlRow(
