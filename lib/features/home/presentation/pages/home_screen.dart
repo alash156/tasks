@@ -9,6 +9,7 @@ import '../../../../core/theme/app_colors.dart';
 import '../../../../core/theme/app_effects.dart';
 import '../../../../core/theme/app_typography.dart';
 import '../../../../shared/widgets/app_glass_container.dart';
+import '../../../auth/presentation/pages/login_screen.dart';
 import '../widgets/home_bottom_nav.dart';
 import '../widgets/home_drawer.dart';
 
@@ -95,7 +96,15 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
 
     return Scaffold(
       key: _scaffoldKey,
-      drawer: HomeDrawer(onClose: () => Navigator.of(context).pop()),
+      drawer: HomeDrawer(
+        onClose: () => Navigator.of(context).pop(),
+        onLogout: () {
+          Navigator.of(context).pushAndRemoveUntil(
+            MaterialPageRoute<void>(builder: (_) => const LoginScreen()),
+            (Route<dynamic> route) => false,
+          );
+        },
+      ),
       drawerScrimColor: const Color(0x5E000000),
       body: Stack(
         fit: StackFit.expand,

@@ -25,41 +25,137 @@ class SignUpScreen extends ConsumerWidget {
     SignUpFormController controller,
     String currentCountry,
   ) async {
+    final searchController = TextEditingController();
+    String searchQuery = '';
+
     final selectedCountry = await showModalBottomSheet<String>(
       context: context,
+      isScrollControlled: true,
       backgroundColor: const Color(0xFF1A2229),
       shape: const RoundedRectangleBorder(
         borderRadius: BorderRadius.vertical(top: Radius.circular(22)),
       ),
       builder: (BuildContext context) {
         return SafeArea(
-          child: ListView.separated(
-            itemCount: signUpCountryOptions.length,
-            shrinkWrap: true,
-            separatorBuilder: (_, __) =>
-                const Divider(height: 1, color: Color(0x3DFFFFFF)),
-            itemBuilder: (BuildContext context, int index) {
-              final country = signUpCountryOptions[index];
-              final isSelected = country == currentCountry;
+          child: StatefulBuilder(
+            builder: (BuildContext context, StateSetter setModalState) {
+              final filteredCountries = signUpCountryOptions
+                  .where(
+                    (String country) => country.toLowerCase().contains(
+                      searchQuery.trim().toLowerCase(),
+                    ),
+                  )
+                  .toList(growable: false);
 
-              return ListTile(
-                title: Text(
-                  country.toUpperCase(),
-                  style: AppTypography.caps14.copyWith(
-                    color: AppColors.white,
-                    letterSpacing: 1.8,
+              return SizedBox(
+                height: MediaQuery.of(context).size.height * 0.68,
+                child: Padding(
+                  padding: EdgeInsets.fromLTRB(18.w, 12.h, 18.w, 10.h),
+                  child: Column(
+                    children: <Widget>[
+                      Container(
+                        width: 44.w,
+                        height: 4.h,
+                        decoration: BoxDecoration(
+                          color: const Color(0x78FFFFFF),
+                          borderRadius: BorderRadius.circular(6.r),
+                        ),
+                      ),
+                      SizedBox(height: 14.h),
+                      TextField(
+                        controller: searchController,
+                        onChanged: (String value) {
+                          setModalState(() {
+                            searchQuery = value;
+                          });
+                        },
+                        style: AppTypography.regular16.copyWith(
+                          color: AppColors.white,
+                          fontSize: 14.sp,
+                        ),
+                        cursorColor: AppColors.white,
+                        decoration: InputDecoration(
+                          hintText: 'Search country',
+                          hintStyle: AppTypography.regular16.copyWith(
+                            color: const Color(0xB5FFFFFF),
+                            fontSize: 14.sp,
+                          ),
+                          prefixIcon: const Icon(
+                            Icons.search_rounded,
+                            color: Color(0xCCFFFFFF),
+                          ),
+                          filled: true,
+                          fillColor: const Color(0x1FFFFFFF),
+                          contentPadding: EdgeInsets.symmetric(
+                            horizontal: 14.w,
+                            vertical: 12.h,
+                          ),
+                          enabledBorder: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(14.r),
+                            borderSide: const BorderSide(
+                              color: Color(0x45FFFFFF),
+                            ),
+                          ),
+                          focusedBorder: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(14.r),
+                            borderSide: const BorderSide(
+                              color: Color(0x8AFFFFFF),
+                            ),
+                          ),
+                        ),
+                      ),
+                      SizedBox(height: 14.h),
+                      Expanded(
+                        child: filteredCountries.isEmpty
+                            ? Center(
+                                child: Text(
+                                  'No country found',
+                                  style: AppTypography.regular16.copyWith(
+                                    color: AppColors.mutedText,
+                                    fontSize: 14.sp,
+                                  ),
+                                ),
+                              )
+                            : ListView.separated(
+                                itemCount: filteredCountries.length,
+                                separatorBuilder: (_, __) => const Divider(
+                                  height: 1,
+                                  color: Color(0x3DFFFFFF),
+                                ),
+                                itemBuilder: (BuildContext context, int index) {
+                                  final country = filteredCountries[index];
+                                  final isSelected = country == currentCountry;
+
+                                  return ListTile(
+                                    title: Text(
+                                      country.toUpperCase(),
+                                      style: AppTypography.caps14.copyWith(
+                                        color: AppColors.white,
+                                        letterSpacing: 1.8,
+                                      ),
+                                    ),
+                                    trailing: isSelected
+                                        ? const Icon(
+                                            Icons.check_rounded,
+                                            color: AppColors.white,
+                                          )
+                                        : null,
+                                    onTap: () =>
+                                        Navigator.of(context).pop(country),
+                                  );
+                                },
+                              ),
+                      ),
+                    ],
                   ),
                 ),
-                trailing: isSelected
-                    ? const Icon(Icons.check_rounded, color: AppColors.white)
-                    : null,
-                onTap: () => Navigator.of(context).pop(country),
               );
             },
           ),
         );
       },
     );
+    searchController.dispose();
 
     if (selectedCountry == null) {
       return;

@@ -8,9 +8,10 @@ import '../../../../core/theme/app_typography.dart';
 import '../../../../shared/widgets/app_glass_container.dart';
 
 class HomeDrawer extends StatefulWidget {
-  const HomeDrawer({super.key, this.onClose});
+  const HomeDrawer({super.key, this.onClose, this.onLogout});
 
   final VoidCallback? onClose;
+  final VoidCallback? onLogout;
 
   @override
   State<HomeDrawer> createState() => _HomeDrawerState();
@@ -206,7 +207,8 @@ class _HomeDrawerState extends State<HomeDrawer> {
                     SizedBox(height: 20.h),
                     const _DrawerDivider(),
                     SizedBox(height: 20.h),
-                    const _DrawerSectionHeader(
+                    _DrawerSectionHeader(
+                      onTap: widget.onLogout,
                       title: 'LOG OUT',
                       iconAsset: AppAssets.drawerLogout,
                       titleColor: Color(0xFFFF6B6B),
@@ -431,7 +433,7 @@ class _DrawerSectionHeader extends StatelessWidget {
       ],
     );
 
-    if (!isExpandable) {
+    if (!isExpandable && onTap == null) {
       return row;
     }
 
