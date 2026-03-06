@@ -7,10 +7,19 @@ import '../../../../core/theme/app_effects.dart';
 import '../../../../core/theme/app_typography.dart';
 import '../../../../shared/widgets/app_glass_container.dart';
 
-class HomeDrawer extends StatelessWidget {
+class HomeDrawer extends StatefulWidget {
   const HomeDrawer({super.key, this.onClose});
 
   final VoidCallback? onClose;
+
+  @override
+  State<HomeDrawer> createState() => _HomeDrawerState();
+}
+
+class _HomeDrawerState extends State<HomeDrawer> {
+  bool _mainCategoriesExpanded = true;
+  bool _wellnessHubExpanded = true;
+  bool _myRequestsExpanded = true;
 
   @override
   Widget build(BuildContext context) {
@@ -34,7 +43,7 @@ class HomeDrawer extends StatelessWidget {
                   children: <Widget>[
                     const _DrawerStatusRow(),
                     SizedBox(height: 22.h),
-                    _DrawerProfileCard(onMenuTap: onClose),
+                    _DrawerProfileCard(onMenuTap: widget.onClose),
                     SizedBox(height: 28.h),
                     Text(
                       'GOOD DAY,\nMR. CHARLEY',
@@ -46,84 +55,88 @@ class HomeDrawer extends StatelessWidget {
                       ),
                     ),
                     SizedBox(height: 26.h),
-                    const _DrawerSectionHeader(
+                    _ExpandableDrawerSection(
                       title: 'MAIN CATEGORIES',
                       icon: Icons.grid_view_outlined,
-                      showArrow: true,
-                    ),
-                    SizedBox(height: 18.h),
-                    const _DrawerItem(
-                      icon: Icons.bed_outlined,
-                      title: 'My Stay',
-                    ),
-                    SizedBox(height: 16.h),
-                    const _DrawerItem(
-                      icon: Icons.dashboard_outlined,
-                      title: 'Dashboard',
-                    ),
-                    SizedBox(height: 16.h),
-                    const _DrawerItem(
-                      icon: Icons.calendar_month_outlined,
-                      title: 'Bookings',
+                      isExpanded: _mainCategoriesExpanded,
+                      onToggle: () {
+                        setState(() {
+                          _mainCategoriesExpanded = !_mainCategoriesExpanded;
+                        });
+                      },
+                      items: const <_DrawerMenuItemData>[
+                        _DrawerMenuItemData(
+                          icon: Icons.bed_outlined,
+                          title: 'My Stay',
+                        ),
+                        _DrawerMenuItemData(
+                          icon: Icons.dashboard_outlined,
+                          title: 'Dashboard',
+                        ),
+                        _DrawerMenuItemData(
+                          icon: Icons.calendar_month_outlined,
+                          title: 'Bookings',
+                        ),
+                      ],
                     ),
                     SizedBox(height: 20.h),
-                    const _DrawerDivider(),
-                    SizedBox(height: 20.h),
-                    const _DrawerSectionHeader(
+                    _ExpandableDrawerSection(
                       title: 'WELLNESS HUB',
                       icon: Icons.spa_outlined,
-                      showArrow: true,
-                    ),
-                    SizedBox(height: 18.h),
-                    const _DrawerItem(
-                      icon: Icons.favorite_border_rounded,
-                      title: 'MyHealth',
-                    ),
-                    SizedBox(height: 16.h),
-                    const _DrawerItem(
-                      icon: Icons.assignment_outlined,
-                      title: 'Questionnaires',
+                      isExpanded: _wellnessHubExpanded,
+                      onToggle: () {
+                        setState(() {
+                          _wellnessHubExpanded = !_wellnessHubExpanded;
+                        });
+                      },
+                      items: const <_DrawerMenuItemData>[
+                        _DrawerMenuItemData(
+                          icon: Icons.favorite_border_rounded,
+                          title: 'MyHealth',
+                        ),
+                        _DrawerMenuItemData(
+                          icon: Icons.assignment_outlined,
+                          title: 'Questionnaires',
+                        ),
+                      ],
                     ),
                     SizedBox(height: 20.h),
-                    const _DrawerDivider(),
-                    SizedBox(height: 20.h),
-                    const _DrawerSectionHeader(
+                    _ExpandableDrawerSection(
                       title: 'MY REQUESTS',
                       icon: Icons.edit_note_rounded,
-                      showArrow: true,
+                      isExpanded: _myRequestsExpanded,
+                      onToggle: () {
+                        setState(() {
+                          _myRequestsExpanded = !_myRequestsExpanded;
+                        });
+                      },
+                      items: const <_DrawerMenuItemData>[
+                        _DrawerMenuItemData(
+                          icon: Icons.support_agent_outlined,
+                          title: 'Concierge',
+                        ),
+                        _DrawerMenuItemData(
+                          icon: Icons.cleaning_services_outlined,
+                          title: 'Housekeeping',
+                        ),
+                        _DrawerMenuItemData(
+                          icon: Icons.room_service_outlined,
+                          title: 'Room Service',
+                        ),
+                        _DrawerMenuItemData(
+                          icon: Icons.handyman_outlined,
+                          title: 'Maintenance Service',
+                        ),
+                        _DrawerMenuItemData(
+                          icon: Icons.directions_car_filled_outlined,
+                          title: 'Transportation',
+                        ),
+                      ],
                     ),
-                    SizedBox(height: 18.h),
-                    const _DrawerItem(
-                      icon: Icons.support_agent_outlined,
-                      title: 'Concierge',
-                    ),
-                    SizedBox(height: 16.h),
-                    const _DrawerItem(
-                      icon: Icons.cleaning_services_outlined,
-                      title: 'Housekeeping',
-                    ),
-                    SizedBox(height: 16.h),
-                    const _DrawerItem(
-                      icon: Icons.room_service_outlined,
-                      title: 'Room Service',
-                    ),
-                    SizedBox(height: 16.h),
-                    const _DrawerItem(
-                      icon: Icons.handyman_outlined,
-                      title: 'Maintenance Service',
-                    ),
-                    SizedBox(height: 16.h),
-                    const _DrawerItem(
-                      icon: Icons.directions_car_filled_outlined,
-                      title: 'Transportation',
-                    ),
-                    SizedBox(height: 20.h),
-                    const _DrawerDivider(),
                     SizedBox(height: 20.h),
                     const _DrawerSectionHeader(
                       title: 'OPO WELLNESS',
                       icon: Icons.music_note_outlined,
-                      showArrow: false,
                     ),
                     SizedBox(height: 20.h),
                     const _DrawerDivider(),
@@ -131,7 +144,14 @@ class HomeDrawer extends StatelessWidget {
                     const _DrawerSectionHeader(
                       title: 'CHILDREN TRACKER',
                       icon: Icons.child_care_outlined,
-                      showArrow: false,
+                    ),
+                    SizedBox(height: 20.h),
+                    const _DrawerDivider(),
+                    SizedBox(height: 20.h),
+                    const _DrawerSectionHeader(
+                      title: 'LOG OUT',
+                      icon: Icons.logout_rounded,
+                      titleColor: Color(0xFFFF6B6B),
                     ),
                     SizedBox(height: 20.h),
                     const _DrawerDivider(),
@@ -264,20 +284,89 @@ class _DrawerProfileCard extends StatelessWidget {
   }
 }
 
-class _DrawerSectionHeader extends StatelessWidget {
-  const _DrawerSectionHeader({
+class _ExpandableDrawerSection extends StatelessWidget {
+  const _ExpandableDrawerSection({
     required this.title,
     required this.icon,
-    required this.showArrow,
+    required this.isExpanded,
+    required this.onToggle,
+    required this.items,
   });
 
   final String title;
   final IconData icon;
-  final bool showArrow;
+  final bool isExpanded;
+  final VoidCallback onToggle;
+  final List<_DrawerMenuItemData> items;
 
   @override
   Widget build(BuildContext context) {
-    return Row(
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: <Widget>[
+        _DrawerSectionHeader(
+          title: title,
+          icon: icon,
+          isExpandable: true,
+          isExpanded: isExpanded,
+          onTap: onToggle,
+        ),
+        AnimatedCrossFade(
+          firstChild: const SizedBox.shrink(),
+          secondChild: Padding(
+            padding: EdgeInsets.only(top: 18.h),
+            child: Column(
+              children: <Widget>[
+                for (int index = 0; index < items.length; index++) ...<Widget>[
+                  _DrawerItem(
+                    icon: items[index].icon,
+                    title: items[index].title,
+                  ),
+                  if (index != items.length - 1) SizedBox(height: 16.h),
+                ],
+              ],
+            ),
+          ),
+          crossFadeState: isExpanded
+              ? CrossFadeState.showSecond
+              : CrossFadeState.showFirst,
+          duration: const Duration(milliseconds: 180),
+          sizeCurve: Curves.easeOutCubic,
+        ),
+        SizedBox(height: 20.h),
+        const _DrawerDivider(),
+      ],
+    );
+  }
+}
+
+class _DrawerMenuItemData {
+  const _DrawerMenuItemData({required this.icon, required this.title});
+
+  final IconData icon;
+  final String title;
+}
+
+class _DrawerSectionHeader extends StatelessWidget {
+  const _DrawerSectionHeader({
+    required this.title,
+    required this.icon,
+    this.isExpandable = false,
+    this.isExpanded = false,
+    this.onTap,
+    this.titleColor = AppColors.white,
+  });
+
+  final String title;
+  final IconData icon;
+  final bool isExpandable;
+  final bool isExpanded;
+  final VoidCallback? onTap;
+  final Color titleColor;
+
+  @override
+  Widget build(BuildContext context) {
+    final row = Row(
       children: <Widget>[
         Icon(icon, color: AppColors.white, size: 24.sp),
         SizedBox(width: 12.w),
@@ -285,19 +374,40 @@ class _DrawerSectionHeader extends StatelessWidget {
           child: Text(
             title,
             style: AppTypography.caps24.copyWith(
-              color: AppColors.white,
+              color: titleColor,
               fontSize: 16.sp,
               letterSpacing: 4.1.w,
             ),
           ),
         ),
-        if (showArrow)
-          Icon(
-            Icons.keyboard_arrow_down_rounded,
-            color: AppColors.white,
-            size: 34.sp,
+        if (isExpandable)
+          AnimatedRotation(
+            turns: isExpanded ? 0.5 : 0.0,
+            duration: const Duration(milliseconds: 180),
+            curve: Curves.easeOut,
+            child: Icon(
+              Icons.keyboard_arrow_down_rounded,
+              color: AppColors.white,
+              size: 34.sp,
+            ),
           ),
       ],
+    );
+
+    if (!isExpandable) {
+      return row;
+    }
+
+    return Material(
+      color: Colors.transparent,
+      child: InkWell(
+        onTap: onTap,
+        borderRadius: BorderRadius.circular(8.r),
+        child: Padding(
+          padding: EdgeInsets.symmetric(vertical: 2.h),
+          child: row,
+        ),
+      ),
     );
   }
 }

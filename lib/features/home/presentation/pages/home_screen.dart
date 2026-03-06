@@ -134,7 +134,6 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
-                    const _StatusPreviewRow(),
                     SizedBox(height: 26.h),
                     _ProfileHeaderCard(
                       onMenuTap: () => _scaffoldKey.currentState?.openDrawer(),
@@ -274,36 +273,6 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
           ),
         ],
       ),
-    );
-  }
-}
-
-class _StatusPreviewRow extends StatelessWidget {
-  const _StatusPreviewRow();
-
-  @override
-  Widget build(BuildContext context) {
-    return Row(
-      children: <Widget>[
-        Text(
-          '9:41',
-          style: AppTypography.regular30.copyWith(
-            color: AppColors.white,
-            fontWeight: FontWeight.w700,
-            fontSize: 17.sp,
-          ),
-        ),
-        const Spacer(),
-        Icon(
-          Icons.signal_cellular_alt_rounded,
-          color: AppColors.white,
-          size: 17.sp,
-        ),
-        SizedBox(width: 6.w),
-        Icon(Icons.wifi_rounded, color: AppColors.white, size: 18.sp),
-        SizedBox(width: 6.w),
-        Icon(Icons.battery_full_rounded, color: AppColors.white, size: 23.sp),
-      ],
     );
   }
 }
