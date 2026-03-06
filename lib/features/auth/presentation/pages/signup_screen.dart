@@ -8,7 +8,7 @@ import '../../../../core/theme/app_colors.dart';
 import '../../../../core/theme/app_effects.dart';
 import '../../../../core/theme/app_typography.dart';
 import '../../../../shared/widgets/app_glass_button.dart';
-import '../../../home/presentation/pages/home_screen.dart';
+import '../../../../shared/widgets/app_glass_container.dart';
 import '../../application/signup_form_controller.dart';
 import '../widgets/auth_checkbox_tile.dart';
 import '../widgets/auth_footer_prompt.dart';
@@ -198,11 +198,74 @@ class SignUpScreen extends ConsumerWidget {
                                       if (!context.mounted) {
                                         return;
                                       }
-                                      Navigator.of(context).pushReplacement(
-                                        MaterialPageRoute<void>(
-                                          builder: (_) => const HomeScreen(),
-                                        ),
-                                      );
+                                      final scaffoldMessenger =
+                                          ScaffoldMessenger.of(context);
+                                      scaffoldMessenger.hideCurrentSnackBar();
+                                      final snackBarController =
+                                          scaffoldMessenger.showSnackBar(
+                                            SnackBar(
+                                              content: AppGlassContainer(
+                                                recipe: AppEffects
+                                                    .frostedWhiteBlur30Strong,
+                                                borderRadius:
+                                                    BorderRadius.circular(16.r),
+                                                border: Border.all(
+                                                  color: const Color(
+                                                    0x84FFFFFF,
+                                                  ),
+                                                ),
+                                                padding: EdgeInsets.symmetric(
+                                                  horizontal: 14.w,
+                                                  vertical: 12.h,
+                                                ),
+                                                child: Row(
+                                                  children: <Widget>[
+                                                    Icon(
+                                                      Icons
+                                                          .check_circle_outline,
+                                                      color: AppColors.white,
+                                                      size: 18.sp,
+                                                    ),
+                                                    SizedBox(width: 10.w),
+                                                    Expanded(
+                                                      child: Text(
+                                                        'Signup Complete',
+                                                        style: AppTypography
+                                                            .regular16
+                                                            .copyWith(
+                                                              color: AppColors
+                                                                  .white,
+                                                              fontSize: 14.sp,
+                                                            ),
+                                                      ),
+                                                    ),
+                                                  ],
+                                                ),
+                                              ),
+                                              behavior:
+                                                  SnackBarBehavior.floating,
+                                              duration: const Duration(
+                                                milliseconds: 1200,
+                                              ),
+                                              padding: EdgeInsets.zero,
+                                              margin: EdgeInsets.fromLTRB(
+                                                20.w,
+                                                0,
+                                                20.w,
+                                                18.h,
+                                              ),
+                                              elevation: 0,
+                                              backgroundColor:
+                                                  Colors.transparent,
+                                            ),
+                                          );
+                                      await snackBarController.closed;
+                                      if (!context.mounted) {
+                                        return;
+                                      }
+                                      if (Navigator.of(context).canPop()) {
+                                        Navigator.of(context).pop();
+                                      }
                                     }
                                   : null,
                             ),

@@ -63,6 +63,8 @@ class _NavButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final horizontalPadding = isActive ? 6.w : 4.w;
+
     return Material(
       color: Colors.transparent,
       child: InkWell(
@@ -74,7 +76,10 @@ class _NavButton extends StatelessWidget {
             child: AnimatedContainer(
               duration: const Duration(milliseconds: 180),
               curve: Curves.easeOut,
-              padding: EdgeInsets.symmetric(horizontal: 8.w, vertical: 6.h),
+              padding: EdgeInsets.symmetric(
+                horizontal: horizontalPadding,
+                vertical: 6.h,
+              ),
               decoration: BoxDecoration(
                 color: isActive ? const Color(0x24FFFFFF) : Colors.transparent,
                 borderRadius: BorderRadius.circular(14.r),
@@ -84,23 +89,28 @@ class _NavButton extends StatelessWidget {
               ),
               child: Column(
                 mainAxisSize: MainAxisSize.min,
+                crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: <Widget>[
                   Image.asset(
                     item.iconAsset,
-                    width: isActive ? 24.w : 22.w,
-                    height: isActive ? 24.w : 22.w,
+                    width: 22.w,
+                    height: 22.w,
                     color: isActive ? AppColors.white : const Color(0xA8FFFFFF),
                     colorBlendMode: BlendMode.srcIn,
                   ),
                   SizedBox(height: 6.h),
                   Text(
                     item.label,
+                    maxLines: 1,
+                    softWrap: false,
+                    overflow: TextOverflow.ellipsis,
+                    textAlign: TextAlign.center,
                     style: AppTypography.caps10.copyWith(
                       color: isActive
                           ? AppColors.white
                           : const Color(0xB8FFFFFF),
-                      fontSize: isActive ? 10.sp : 9.sp,
-                      letterSpacing: 1.5.w,
+                      fontSize: 9.sp,
+                      letterSpacing: 1.2.w,
                     ),
                   ),
                 ],

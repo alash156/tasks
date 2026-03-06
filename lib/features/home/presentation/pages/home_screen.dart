@@ -584,7 +584,7 @@ class _FanOption extends StatelessWidget {
               ),
             ),
           ),
-          SizedBox(height: 14.h),
+          SizedBox(height: 2.h),
           Text(
             title,
             textAlign: TextAlign.center,
