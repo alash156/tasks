@@ -176,10 +176,19 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
                           padding: EdgeInsets.symmetric(vertical: 4.h),
                           child: Row(
                             children: <Widget>[
-                              Icon(
-                                Icons.lightbulb_outline_rounded,
-                                color: AppColors.white,
-                                size: 34.sp,
+                              // Icon(
+                              //   Icons.lightbulb_outline_rounded,
+                              //   color: AppColors.white,
+                              //   size: 34.sp,
+                              // ),
+                              Center(
+                                child: Image.asset(
+                                  AppAssets.iconLamp,
+                                  width: 32.w,
+                                  height: 32.w,
+                                  color: AppColors.white,
+                                  colorBlendMode: BlendMode.srcIn,
+                                ),
                               ),
                               SizedBox(width: 12.w),
                               Expanded(
