@@ -70,29 +70,42 @@ class _NavButton extends StatelessWidget {
         borderRadius: BorderRadius.circular(16.r),
         child: SizedBox(
           height: 66.h,
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: <Widget>[
-              Opacity(
-                opacity: isActive ? 1 : 0.82,
-                child: Image.asset(
-                  item.iconAsset,
-                  width: 24.w,
-                  height: 24.w,
-                  color: isActive ? AppColors.white : const Color(0xE6FFFFFF),
-                  colorBlendMode: BlendMode.srcIn,
-                ),
+          child: Center(
+            child: AnimatedContainer(
+              duration: const Duration(milliseconds: 180),
+              curve: Curves.easeOut,
+              padding: EdgeInsets.symmetric(horizontal: 8.w, vertical: 6.h),
+              decoration: BoxDecoration(
+                color: isActive ? const Color(0x24FFFFFF) : Colors.transparent,
+                borderRadius: BorderRadius.circular(14.r),
+                border: isActive
+                    ? Border.all(color: const Color(0x5AFFFFFF))
+                    : null,
               ),
-              SizedBox(height: 6.h),
-              Text(
-                item.label,
-                style: AppTypography.caps10.copyWith(
-                  color: isActive ? AppColors.white : AppColors.mutedText,
-                  fontSize: 10.sp,
-                  letterSpacing: 1.5.w,
-                ),
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: <Widget>[
+                  Image.asset(
+                    item.iconAsset,
+                    width: isActive ? 24.w : 22.w,
+                    height: isActive ? 24.w : 22.w,
+                    color: isActive ? AppColors.white : const Color(0xA8FFFFFF),
+                    colorBlendMode: BlendMode.srcIn,
+                  ),
+                  SizedBox(height: 6.h),
+                  Text(
+                    item.label,
+                    style: AppTypography.caps10.copyWith(
+                      color: isActive
+                          ? AppColors.white
+                          : const Color(0xB8FFFFFF),
+                      fontSize: isActive ? 10.sp : 9.sp,
+                      letterSpacing: 1.5.w,
+                    ),
+                  ),
+                ],
               ),
-            ],
+            ),
           ),
         ),
       ),
