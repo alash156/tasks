@@ -26,14 +26,14 @@ class _HomeDrawerState extends State<HomeDrawer> {
     return Drawer(
       width: 0.9.sw,
       elevation: 0,
-      backgroundColor: Colors.transparent,
+      backgroundColor: const Color(0xFF5E5E5E),
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.horizontal(right: Radius.circular(28.r)),
       ),
       child: ClipRRect(
         borderRadius: BorderRadius.horizontal(right: Radius.circular(28.r)),
         child: Container(
-          color: const Color(0xF15E5E5E),
+          color: const Color(0xFF5E5E5E),
           child: Stack(
             children: <Widget>[
               SingleChildScrollView(
@@ -41,7 +41,6 @@ class _HomeDrawerState extends State<HomeDrawer> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
-                    const _DrawerStatusRow(),
                     SizedBox(height: 22.h),
                     _DrawerProfileCard(onMenuTap: widget.onClose),
                     SizedBox(height: 28.h),
@@ -178,36 +177,6 @@ class _HomeDrawerState extends State<HomeDrawer> {
   }
 }
 
-class _DrawerStatusRow extends StatelessWidget {
-  const _DrawerStatusRow();
-
-  @override
-  Widget build(BuildContext context) {
-    return Row(
-      children: <Widget>[
-        Text(
-          '9:41',
-          style: AppTypography.regular30.copyWith(
-            color: AppColors.white,
-            fontSize: 17.sp,
-            fontWeight: FontWeight.w700,
-          ),
-        ),
-        const Spacer(),
-        Icon(
-          Icons.signal_cellular_alt_rounded,
-          color: AppColors.white,
-          size: 17.sp,
-        ),
-        SizedBox(width: 6.w),
-        Icon(Icons.wifi_rounded, color: AppColors.white, size: 18.sp),
-        SizedBox(width: 6.w),
-        Icon(Icons.battery_full_rounded, color: AppColors.white, size: 23.sp),
-      ],
-    );
-  }
-}
-
 class _DrawerProfileCard extends StatelessWidget {
   const _DrawerProfileCard({required this.onMenuTap});
 
@@ -217,9 +186,14 @@ class _DrawerProfileCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return AppGlassContainer(
       recipe: AppEffects.frostedWhiteBlur30,
-      borderRadius: BorderRadius.circular(30.r),
+      borderRadius: BorderRadius.only(
+        topLeft: Radius.circular(32.r),
+        bottomLeft: Radius.circular(32.r),
+        topRight: Radius.circular(18.r),
+        bottomRight: Radius.circular(18.r),
+      ),
       border: Border.all(color: const Color(0x76FFFFFF)),
-      padding: EdgeInsets.symmetric(horizontal: 12.w, vertical: 12.h),
+      padding: EdgeInsets.symmetric(horizontal: 0.w, vertical: 0.h),
       child: Row(
         children: <Widget>[
           ClipOval(
@@ -278,6 +252,7 @@ class _DrawerProfileCard extends StatelessWidget {
               ),
             ),
           ),
+          SizedBox(width: 10.w),
         ],
       ),
     );

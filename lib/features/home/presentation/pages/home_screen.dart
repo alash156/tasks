@@ -286,9 +286,14 @@ class _ProfileHeaderCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return AppGlassContainer(
       recipe: AppEffects.frostedWhiteBlur30,
-      borderRadius: BorderRadius.circular(30.r),
+      borderRadius: BorderRadius.only(
+        topLeft: Radius.circular(40.r),
+        bottomLeft: Radius.circular(40.r),
+        topRight: Radius.circular(20.r),
+        bottomRight: Radius.circular(20.r),
+      ),
       border: Border.all(color: const Color(0x70FFFFFF)),
-      padding: EdgeInsets.symmetric(horizontal: 12.w, vertical: 10.h),
+      padding: EdgeInsets.symmetric(horizontal: 0.w, vertical: 0.h),
       child: Row(
         children: <Widget>[
           ClipOval(
@@ -378,6 +383,7 @@ class _ProfileHeaderCard extends StatelessWidget {
               ),
             ),
           ),
+          SizedBox(width: 12.w),
         ],
       ),
     );
