@@ -10,6 +10,7 @@ import '../../../../core/theme/app_effects.dart';
 import '../../../../core/theme/app_typography.dart';
 import '../../../../shared/widgets/app_glass_container.dart';
 import '../widgets/home_bottom_nav.dart';
+import '../widgets/home_drawer.dart';
 
 final homeBottomNavIndexProvider =
     NotifierProvider<HomeBottomNavIndexNotifier, int>(
@@ -38,11 +39,18 @@ class HomeSelectedSceneNotifier extends Notifier<int> {
   }
 }
 
-class HomeScreen extends ConsumerWidget {
+class HomeScreen extends ConsumerStatefulWidget {
   const HomeScreen({super.key});
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  ConsumerState<HomeScreen> createState() => _HomeScreenState();
+}
+
+class _HomeScreenState extends ConsumerState<HomeScreen> {
+  final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
+
+  @override
+  Widget build(BuildContext context) {
     final navIndex = ref.watch(homeBottomNavIndexProvider);
     final selectedScene = ref.watch(homeSelectedSceneProvider);
 
@@ -85,6 +93,9 @@ class HomeScreen extends ConsumerWidget {
     ];
 
     return Scaffold(
+      key: _scaffoldKey,
+      drawer: HomeDrawer(onClose: () => Navigator.of(context).pop()),
+      drawerScrimColor: const Color(0x5E000000),
       body: Stack(
         fit: StackFit.expand,
         children: <Widget>[
@@ -125,7 +136,9 @@ class HomeScreen extends ConsumerWidget {
                   children: <Widget>[
                     const _StatusPreviewRow(),
                     SizedBox(height: 26.h),
-                    const _ProfileHeaderCard(),
+                    _ProfileHeaderCard(
+                      onMenuTap: () => _scaffoldKey.currentState?.openDrawer(),
+                    ),
                     SizedBox(height: 44.h),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -296,7 +309,9 @@ class _StatusPreviewRow extends StatelessWidget {
 }
 
 class _ProfileHeaderCard extends StatelessWidget {
-  const _ProfileHeaderCard();
+  const _ProfileHeaderCard({required this.onMenuTap});
+
+  final VoidCallback onMenuTap;
 
   @override
   Widget build(BuildContext context) {
@@ -378,11 +393,21 @@ class _ProfileHeaderCard extends StatelessWidget {
             ],
           ),
           SizedBox(width: 12.w),
-          Image.asset(
-            AppAssets.iconMenu,
-            width: 34.w,
-            height: 24.h,
-            fit: BoxFit.contain,
+          Material(
+            color: Colors.transparent,
+            child: InkWell(
+              onTap: onMenuTap,
+              borderRadius: BorderRadius.circular(10.r),
+              child: Padding(
+                padding: EdgeInsets.all(2.w),
+                child: Image.asset(
+                  AppAssets.iconMenu,
+                  width: 34.w,
+                  height: 24.h,
+                  fit: BoxFit.contain,
+                ),
+              ),
+            ),
           ),
         ],
       ),
@@ -420,8 +445,8 @@ class _SceneTile extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
                 Container(
-                  width: 40.w,
-                  height: 40.w,
+                  width: 30.w,
+                  height: 30.w,
                   decoration: BoxDecoration(
                     shape: BoxShape.circle,
                     boxShadow: <BoxShadow>[
