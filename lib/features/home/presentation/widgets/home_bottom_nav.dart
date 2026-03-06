@@ -28,9 +28,9 @@ class HomeBottomNav extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return AppGlassContainer(
-      recipe: AppEffects.darkGlassBlur30ShadowLarge,
+      recipe: AppEffects.frostedWhiteBlur30Strong,
       borderRadius: BorderRadius.circular(30.r),
-      border: Border.all(color: const Color(0x70FFFFFF)),
+      border: Border.all(color: const Color(0x6EFFFFFF)),
       padding: EdgeInsets.symmetric(horizontal: 8.w, vertical: 8.h),
       child: Row(
         children: List<Widget>.generate(_items.length, (int index) {
@@ -75,7 +75,13 @@ class _NavButton extends StatelessWidget {
             children: <Widget>[
               Opacity(
                 opacity: isActive ? 1 : 0.82,
-                child: Image.asset(item.iconAsset, width: 24.w, height: 24.w),
+                child: Image.asset(
+                  item.iconAsset,
+                  width: 24.w,
+                  height: 24.w,
+                  color: isActive ? AppColors.white : const Color(0xE6FFFFFF),
+                  colorBlendMode: BlendMode.srcIn,
+                ),
               ),
               SizedBox(height: 6.h),
               Text(

@@ -2,6 +2,7 @@ class AppAssets {
   AppAssets._();
 
   static const String authBackground = 'assets/images/image1.jpg';
+  static const String homeBackground = 'assets/images/image2.jpg';
   static const String loginBackground = authBackground;
   static const String signUpBackground = authBackground;
   static const String profileAvatar = 'assets/images/image3man.jpg';

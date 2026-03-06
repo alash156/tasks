@@ -87,7 +87,7 @@ class HomeScreen extends ConsumerWidget {
         fit: StackFit.expand,
         children: <Widget>[
           Image.asset(
-            AppAssets.authBackground,
+            AppAssets.homeBackground,
             fit: BoxFit.cover,
             alignment: Alignment.center,
           ),
@@ -129,16 +129,16 @@ class HomeScreen extends ConsumerWidget {
                           'VILLA 123',
                           style: AppTypography.caps24.copyWith(
                             color: AppColors.white,
-                            fontSize: 36.sp,
-                            letterSpacing: 6.1.w,
+                            fontSize: 24.sp,
+                            letterSpacing: 4.6.w,
                           ),
                         ),
                         Text(
                           '26°C',
                           style: AppTypography.regular46.copyWith(
                             color: AppColors.white,
-                            fontSize: 50.sp,
-                            letterSpacing: 1.4.w,
+                            fontSize: 24.sp,
+                            letterSpacing: 0.8.w,
                           ),
                         ),
                       ],
@@ -157,8 +157,8 @@ class HomeScreen extends ConsumerWidget {
                             'LIGHTING & SCENES',
                             style: AppTypography.caps24.copyWith(
                               color: AppColors.white,
-                              fontSize: 24.sp,
-                              letterSpacing: 5.w,
+                              fontSize: 18.sp,
+                              letterSpacing: 3.4.w,
                             ),
                           ),
                         ),
@@ -174,8 +174,8 @@ class HomeScreen extends ConsumerWidget {
                       'LIVING ROOM',
                       style: AppTypography.regular56.copyWith(
                         color: AppColors.white,
-                        fontSize: 58.sp,
-                        letterSpacing: 2.6.w,
+                        fontSize: 38.sp,
+                        letterSpacing: 1.8.w,
                         height: 1,
                       ),
                     ),
@@ -296,9 +296,9 @@ class _ProfileHeaderCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return AppGlassContainer(
-      recipe: AppEffects.darkGlassBlur30ShadowLarge,
+      recipe: AppEffects.frostedWhiteBlur30,
       borderRadius: BorderRadius.circular(34.r),
-      border: Border.all(color: const Color(0x5CFFFFFF)),
+      border: Border.all(color: const Color(0x66FFFFFF)),
       padding: EdgeInsets.symmetric(horizontal: 14.w, vertical: 14.h),
       child: Row(
         children: <Widget>[
@@ -319,8 +319,8 @@ class _ProfileHeaderCard extends StatelessWidget {
                   'MR.',
                   style: AppTypography.caps16.copyWith(
                     color: AppColors.white,
-                    fontSize: 18.sp,
-                    letterSpacing: 4.2.w,
+                    fontSize: 14.sp,
+                    letterSpacing: 3.4.w,
                   ),
                 ),
                 SizedBox(height: 4.h),
@@ -330,8 +330,8 @@ class _ProfileHeaderCard extends StatelessWidget {
                   overflow: TextOverflow.ellipsis,
                   style: AppTypography.caps24.copyWith(
                     color: AppColors.white,
-                    fontSize: 21.sp,
-                    letterSpacing: 4.6.w,
+                    fontSize: 17.sp,
+                    letterSpacing: 3.6.w,
                     height: 1.1,
                   ),
                 ),
@@ -399,10 +399,10 @@ class _SceneTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return AppGlassContainer(
-      recipe: AppEffects.darkGlassBlur30,
+      recipe: AppEffects.frostedWhiteBlur30,
       borderRadius: BorderRadius.circular(24.r),
       border: Border.all(
-        color: isSelected ? const Color(0x99FFFFFF) : const Color(0x66AFC2CB),
+        color: isSelected ? const Color(0x8FFFFFFF) : const Color(0x5CBFD0D8),
       ),
       child: Material(
         color: Colors.transparent,
@@ -444,8 +444,8 @@ class _SceneTile extends StatelessWidget {
                     maxLines: 1,
                     style: AppTypography.caps24.copyWith(
                       color: item.accent,
-                      fontSize: 17.sp,
-                      letterSpacing: 2.1.w,
+                      fontSize: 14.sp,
+                      letterSpacing: 1.5.w,
                     ),
                   ),
                 ),
@@ -464,9 +464,9 @@ class _FanControlPanel extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return AppGlassContainer(
-      recipe: AppEffects.darkGlassBlur30,
+      recipe: AppEffects.frostedWhiteBlur30Strong,
       borderRadius: BorderRadius.circular(28.r),
-      border: Border.all(color: const Color(0x7FFFFFFF)),
+      border: Border.all(color: const Color(0x78FFFFFF)),
       padding: EdgeInsets.symmetric(horizontal: 18.w, vertical: 18.h),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -541,7 +541,7 @@ class _FanOption extends StatelessWidget {
             textAlign: TextAlign.center,
             style: AppTypography.regular24.copyWith(
               color: color,
-              fontSize: 22.sp,
+              fontSize: 14.sp,
             ),
           ),
         ],
@@ -569,8 +569,8 @@ class _RoomSelector extends StatelessWidget {
           'BEDROOM',
           style: AppTypography.caps24.copyWith(
             color: AppColors.white,
-            fontSize: 31.sp,
-            letterSpacing: 5.w,
+            fontSize: 20.sp,
+            letterSpacing: 3.4.w,
           ),
         ),
         SizedBox(width: 26.w),
@@ -639,8 +639,8 @@ class _ExpandableControlRow extends StatelessWidget {
             title,
             style: AppTypography.caps24.copyWith(
               color: AppColors.white,
-              fontSize: 38.sp,
-              letterSpacing: 5.2.w,
+              fontSize: 20.sp,
+              letterSpacing: 3.4.w,
             ),
           ),
         ),
