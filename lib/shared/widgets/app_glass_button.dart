@@ -12,12 +12,18 @@ class AppGlassButton extends StatelessWidget {
     required this.onPressed,
     this.height = 88,
     this.isLoading = false,
+    this.recipe = AppEffects.darkGlassBlur30ShadowLarge,
+    this.borderColor = const Color(0x59FFFFFF),
+    this.labelFontSize,
   });
 
   final String label;
   final VoidCallback? onPressed;
   final double height;
   final bool isLoading;
+  final AppSurfaceRecipe recipe;
+  final Color borderColor;
+  final double? labelFontSize;
 
   @override
   Widget build(BuildContext context) {
@@ -26,13 +32,13 @@ class AppGlassButton extends StatelessWidget {
     return Opacity(
       opacity: enabled ? 1 : 0.6,
       child: AppGlassContainer(
-        recipe: AppEffects.darkGlassBlur30ShadowLarge,
-        borderRadius: BorderRadius.circular(28),
-        border: Border.all(color: const Color(0x59FFFFFF)),
+        recipe: recipe,
+        borderRadius: BorderRadius.circular(14),
+        border: Border.all(color: borderColor),
         child: Material(
           color: Colors.transparent,
           child: InkWell(
-            borderRadius: BorderRadius.circular(28),
+            borderRadius: BorderRadius.circular(14),
             onTap: onPressed,
             child: SizedBox(
               height: height,
@@ -52,6 +58,7 @@ class AppGlassButton extends StatelessWidget {
                         style: AppTypography.caps24.copyWith(
                           color: AppColors.white,
                           letterSpacing: 4,
+                          fontSize: labelFontSize,
                         ),
                       ),
               ),

@@ -26,7 +26,7 @@ class AuthFooterPrompt extends StatelessWidget {
         Text(
           prompt,
           textAlign: TextAlign.center,
-          style: context.appText.caps16.copyWith(
+          style: context.appText.caps14.copyWith(
             color: AppColors.mutedText,
             letterSpacing: 2.3,
           ),
@@ -41,7 +41,7 @@ class AuthFooterPrompt extends StatelessWidget {
           ),
           child: Text(
             actionText,
-            style: context.appText.caps16.copyWith(
+            style: context.appText.caps14.copyWith(
               color: AppColors.linkAccent,
               letterSpacing: 2.3,
               decoration: TextDecoration.underline,

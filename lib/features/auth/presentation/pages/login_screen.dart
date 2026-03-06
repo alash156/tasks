@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../../../core/extensions/theme_context_extension.dart';
 import '../../../../core/theme/app_colors.dart';
+import '../../../../core/theme/app_effects.dart';
 import '../../../../core/theme/app_typography.dart';
 import '../../../../shared/widgets/app_glass_button.dart';
 import '../../../home/presentation/pages/home_screen.dart';
@@ -99,22 +100,30 @@ class LoginScreen extends ConsumerWidget {
                             ),
                           ),
                           SizedBox(height: constraints.maxHeight * 0.03),
-                          AppGlassButton(
-                            label: 'SIGN IN',
-                            isLoading: state.isSubmitting,
-                            onPressed: state.canSubmit
-                                ? () async {
-                                    await controller.submit();
-                                    if (!context.mounted) {
-                                      return;
+                          FractionallySizedBox(
+                            widthFactor: 0.8,
+                            alignment: Alignment.center,
+                            child: AppGlassButton(
+                              label: 'SIGN IN',
+                              height: 50,
+                              recipe: AppEffects.frostedWhiteBlur30Strong,
+                              borderColor: Color(0x80FFFFFF),
+                              labelFontSize: 19,
+                              isLoading: state.isSubmitting,
+                              onPressed: state.canSubmit
+                                  ? () async {
+                                      await controller.submit();
+                                      if (!context.mounted) {
+                                        return;
+                                      }
+                                      Navigator.of(context).pushReplacement(
+                                        MaterialPageRoute<void>(
+                                          builder: (_) => const HomeScreen(),
+                                        ),
+                                      );
                                     }
-                                    Navigator.of(context).pushReplacement(
-                                      MaterialPageRoute<void>(
-                                        builder: (_) => const HomeScreen(),
-                                      ),
-                                    );
-                                  }
-                                : null,
+                                  : null,
+                            ),
                           ),
                           const SizedBox(height: 34),
                           Text(

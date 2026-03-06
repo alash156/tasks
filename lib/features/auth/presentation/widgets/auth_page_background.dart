@@ -1,3 +1,5 @@
+import 'dart:ui' show ImageFilter;
+
 import 'package:flutter/material.dart';
 
 import '../../../../core/constants/app_assets.dart';
@@ -20,7 +22,7 @@ class AuthPageBackground extends StatelessWidget {
       children: <Widget>[
         Image.asset(
           backgroundAsset,
-          fit: BoxFit.cover,
+          fit: BoxFit.fill,
           alignment: Alignment.center,
         ),
         const DecoratedBox(

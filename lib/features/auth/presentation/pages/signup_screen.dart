@@ -5,6 +5,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../../../../core/constants/app_assets.dart';
 import '../../../../core/extensions/theme_context_extension.dart';
 import '../../../../core/theme/app_colors.dart';
+import '../../../../core/theme/app_effects.dart';
 import '../../../../core/theme/app_typography.dart';
 import '../../../../shared/widgets/app_glass_button.dart';
 import '../../../home/presentation/pages/home_screen.dart';
@@ -175,22 +176,30 @@ class SignUpScreen extends ConsumerWidget {
                                 controller.onAcceptHealthProcessingChanged,
                           ),
                           const SizedBox(height: 30),
-                          AppGlassButton(
-                            label: 'SIGN UP',
-                            isLoading: state.isSubmitting,
-                            onPressed: state.canSubmit
-                                ? () async {
-                                    await controller.submit();
-                                    if (!context.mounted) {
-                                      return;
+                          FractionallySizedBox(
+                            widthFactor: 0.8,
+                            alignment: Alignment.center,
+                            child: AppGlassButton(
+                              label: 'SIGN UP',
+                              height: 50,
+                              recipe: AppEffects.frostedWhiteBlur30Strong,
+                              borderColor: Color(0x80FFFFFF),
+                              labelFontSize: 19,
+                              isLoading: state.isSubmitting,
+                              onPressed: state.canSubmit
+                                  ? () async {
+                                      await controller.submit();
+                                      if (!context.mounted) {
+                                        return;
+                                      }
+                                      Navigator.of(context).pushReplacement(
+                                        MaterialPageRoute<void>(
+                                          builder: (_) => const HomeScreen(),
+                                        ),
+                                      );
                                     }
-                                    Navigator.of(context).pushReplacement(
-                                      MaterialPageRoute<void>(
-                                        builder: (_) => const HomeScreen(),
-                                      ),
-                                    );
-                                  }
-                                : null,
+                                  : null,
+                            ),
                           ),
                           const SizedBox(height: 28),
                           Text(
