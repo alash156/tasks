@@ -20,6 +20,7 @@ class _HomeDrawerState extends State<HomeDrawer> {
   bool _mainCategoriesExpanded = true;
   bool _wellnessHubExpanded = true;
   bool _myRequestsExpanded = true;
+  bool _exploreExpanded = true;
 
   @override
   Widget build(BuildContext context) {
@@ -143,6 +144,64 @@ class _HomeDrawerState extends State<HomeDrawer> {
                     const _DrawerSectionHeader(
                       title: 'CHILDREN TRACKER',
                       icon: Icons.child_care_outlined,
+                    ),
+                    SizedBox(height: 20.h),
+                    const _DrawerDivider(),
+                    SizedBox(height: 20.h),
+                    const _DrawerSectionHeader(
+                      title: 'IN ROOM CONTROL',
+                      icon: Icons.meeting_room_outlined,
+                    ),
+                    SizedBox(height: 20.h),
+                    const _DrawerDivider(),
+                    SizedBox(height: 20.h),
+                    _ExpandableDrawerSection(
+                      title: 'EXPLORE',
+                      icon: Icons.travel_explore_outlined,
+                      isExpanded: _exploreExpanded,
+                      onToggle: () {
+                        setState(() {
+                          _exploreExpanded = !_exploreExpanded;
+                        });
+                      },
+                      items: const <_DrawerMenuItemData>[
+                        _DrawerMenuItemData(
+                          icon: Icons.map_outlined,
+                          title: 'Resort Map',
+                        ),
+                        _DrawerMenuItemData(
+                          icon: Icons.menu_book_outlined,
+                          title: 'Catalogue',
+                        ),
+                        _DrawerMenuItemData(
+                          icon: Icons.restaurant_menu_outlined,
+                          title: 'Menu',
+                        ),
+                        _DrawerMenuItemData(
+                          icon: Icons.photo_library_outlined,
+                          title: 'Gallery',
+                        ),
+                        _DrawerMenuItemData(
+                          icon: Icons.shopping_bag_outlined,
+                          title: 'Boutique',
+                        ),
+                        _DrawerMenuItemData(
+                          icon: Icons.spa_outlined,
+                          title: 'Services and Treatment',
+                        ),
+                      ],
+                    ),
+                    SizedBox(height: 20.h),
+                    const _DrawerSectionHeader(
+                      title: 'BOOK WITH US',
+                      icon: Icons.calendar_month_outlined,
+                    ),
+                    SizedBox(height: 20.h),
+                    const _DrawerDivider(),
+                    SizedBox(height: 20.h),
+                    const _DrawerSectionHeader(
+                      title: 'SETTINGS',
+                      icon: Icons.settings_outlined,
                     ),
                     SizedBox(height: 20.h),
                     const _DrawerDivider(),
