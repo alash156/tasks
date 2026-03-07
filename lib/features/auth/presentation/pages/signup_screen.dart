@@ -248,18 +248,16 @@ class SignUpScreen extends ConsumerWidget {
                             obscureText: state.obscurePassword,
                             textInputAction: TextInputAction.done,
                             onChanged: controller.onPasswordChanged,
-                            trailing: IconButton(
-                              onPressed: controller.togglePasswordVisibility,
-                              padding: EdgeInsets.zero,
-                              visualDensity: VisualDensity.compact,
-                              icon: SvgPicture.asset(
+                            trailing: GestureDetector(
+                              onTap: controller.togglePasswordVisibility,
+                              child: SvgPicture.asset(
                                 AppAssets.iconEye,
+                                width: 20.w,
+                                height: 20.w,
                                 colorFilter: const ColorFilter.mode(
                                   AppColors.white,
                                   BlendMode.srcIn,
                                 ),
-                                width: 20.w,
-                                height: 20.w,
                               ),
                             ),
                           ),
